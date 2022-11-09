@@ -36,6 +36,9 @@ const propertySchema = new Schema({
   value: {
     type: Float
   },
+  description: {
+    type: String
+  },
   images: [{
     type: String
   }],

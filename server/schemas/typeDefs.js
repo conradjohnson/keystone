@@ -6,21 +6,22 @@ const typeDefs = gql`
     name: String
   }
 
-  type Product {
+  type Property {
     _id: ID
-    name: String
+    address: String
+    address2: String
+    city: String
+    state: String
+    country: String
+    zip: String
+    value: Float
     description: String
-    image: String
-    quantity: Int
-    price: Float
-    category: Category
+    image: [String]
+    forSale: Boolean
+    salePrice: Float
+    
   }
 
-  type Order {
-    _id: ID
-    purchaseDate: String
-    products: [Product]
-  }
 
   type User {
     _id: ID
@@ -30,9 +31,6 @@ const typeDefs = gql`
     orders: [Order]
   }
 
-  type Checkout {
-    session: ID
-  }
 
   type Auth {
     token: ID
@@ -40,19 +38,18 @@ const typeDefs = gql`
   }
 
   type Query {
-    categories: [Category]
-    products(category: ID, name: String): [Product]
-    product(_id: ID!): Product
+    properties: [Property]
+    saleproperties: [Property]
+    property(_id: ID!): Property
     user: User
-    order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
+   
   }
 
   type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    addOrder(products: [ID]!): Order
+    addProperty(products: [ID]!): Property
     updateUser(firstName: String, lastName: String, email: String, password: String): User
-    updateProduct(_id: ID!, quantity: Int!): Product
+    updateProperty(_id: ID!, Property): Property
     login(email: String!, password: String!): Auth
   }
 `;

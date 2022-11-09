@@ -13,8 +13,8 @@ const resolvers = {
       return await Property.find({forSale:true});
     },
     
-    property: async (parent, {id}, context)=>{
-      return await Property.findById(id);
+    property: async (parent, args, context)=>{
+      return await Property.findById(args._id);
     },
 
     user: async (parent, args, context) => {
@@ -66,7 +66,7 @@ const resolvers = {
     },
     updateProperty: async (parent, args, context) => {
       
-      return await Product.findByIdAndUpdate(_id, {
+      return await Property.findByIdAndUpdate(args._id, {
 
         forSale: args.forSale,
         salePrice: args.salePrice,

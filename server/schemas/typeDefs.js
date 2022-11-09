@@ -28,7 +28,7 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     email: String
-    orders: [Order]
+    properties: [Property]
   }
 
 
@@ -47,9 +47,9 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    addProperty(products: [ID]!): Property
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
-    updateProperty(_id: ID!, Property): Property
+    addProperty(address: String, address2: String, city: String, state: String, zip: String, images: [String], lat: String, lng: String, value: Float ): Property
+    updateUser(_id: ID!, firstName: String, lastName: String, email: String, password: String, property: ID): User
+    updateProperty(_id: ID!, forSale: Boolean, salePrice: Float, NftUri: String, isNft: Boolean, images: [String], lat: String, lng: String, value: Float ): Property
     login(email: String!, password: String!): Auth
   }
 `;

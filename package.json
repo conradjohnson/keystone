@@ -5,6 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "NODE_ENV=production node server --ignore client",
+    "server": "cd server && npm run start",
     "develop": "concurrently \"cd server && npm run start\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",

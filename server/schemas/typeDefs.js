@@ -16,7 +16,7 @@ const typeDefs = gql`
     zip: String
     value: Float
     description: String
-    image: [String]
+    images: [String]
     forSale: Boolean
     salePrice: Float
     
@@ -25,8 +25,7 @@ const typeDefs = gql`
 
   type User {
     _id: ID
-    firstName: String
-    lastName: String
+    name: String
     email: String
     properties: [Property]
   }
@@ -46,9 +45,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+    addUser(name: String!, email: String!, password: String!): Auth
     addProperty(address: String, address2: String, city: String, state: String, zip: String, images: [String], lat: String, lng: String, value: Float ): Property
-    updateUser(_id: ID!, firstName: String, lastName: String, email: String, password: String, property: ID): User
+    updateUser(_id: ID!, name: String, email: String, password: String, property: ID): User
     updateProperty(_id: ID!, forSale: Boolean, salePrice: Float, NftUri: String, isNft: Boolean, images: [String], lat: String, lng: String, value: Float ): Property
     login(email: String!, password: String!): Auth
   }

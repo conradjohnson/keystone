@@ -35,10 +35,20 @@ const resolvers = {
 
       return { token, user };
     },
-    addProperty: async (parent, { property }, context) => {
+    addProperty: async (parent, args, context) => {
       console.log(context);
       if (context.user) {
-        const property = new Property(property);
+        const property = new Property({
+          address: args.address,
+          address2: args.address2,
+          city: args.city,
+          state: args.state,
+          zip: args.zip,
+          images: args.images,
+          lat: args.lat,
+          lng: args.lng,
+          value: args.value
+        });
 
         await User.findByIdAndUpdate(context.user._id, { $push: { properties: property } });
         await Property.create(property);
@@ -54,9 +64,19 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    updateProperty: async (parent, {property}, context) => {
+    updateProperty: async (parent, args, context) => {
       
-      return await Product.findByIdAndUpdate(_id, property, { new: true });
+      return await Product.findByIdAndUpdate(_id, {
+
+        forSale: args.forSale,
+        salePrice: args.salePrice,
+        NftUri: args.NftUri,
+        isNft: args.isNft,
+        images: args.images,
+        lat: args.lat,
+        lng: args.lng,
+        value: args.value
+      }, { new: true });
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });

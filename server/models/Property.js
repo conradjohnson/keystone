@@ -10,7 +10,6 @@ const propertySchema = new Schema({
   },
   address2: {
     type: String,
-    required: true,
     trim: true
   },
   city: {
@@ -33,8 +32,14 @@ const propertySchema = new Schema({
     required: true,
     trim: true
   },
+  lat: {
+    type: String
+  },
+  lng: {
+    type: String
+  },
   value: {
-    type: Float
+    type: Number
   },
   description: {
     type: String
@@ -42,12 +47,20 @@ const propertySchema = new Schema({
   images: [{
     type: String
   }],
+  isNft:{
+    type: Boolean,
+    default: false
+  },
+  NftUri:{
+    type: String,
+    trim: true
+  },
   forSale: {
     type: Boolean,
     default: false
   },
   salePrice: {
-    type: Float,
+    type: Number,
     default: -1
   }
 });

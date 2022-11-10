@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
 
-function Signup(props) {
+function Register(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [addUser] = useMutation(ADD_USER);
 
@@ -14,8 +14,8 @@ function Signup(props) {
       variables: {
         email: formState.email,
         password: formState.password,
-        firstName: formState.firstName,
-        lastName: formState.lastName,
+        name: formState.name,
+       
       },
     });
     const token = mutationResponse.data.addUser.token;
@@ -34,28 +34,19 @@ function Signup(props) {
     <div className="container my-1">
       <Link to="/login">← Go to Login</Link>
 
-      <h2>Signup</h2>
+      <h2>Register</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
-          <label htmlFor="firstName">First Name:</label>
+          <label htmlFor="firstName">Name:</label>
           <input
-            placeholder="First"
-            name="firstName"
-            type="firstName"
-            id="firstName"
+            placeholder="Full Name"
+            name="name"
+            type="name"
+            id="name"
             onChange={handleChange}
           />
         </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            placeholder="Last"
-            name="lastName"
-            type="lastName"
-            id="lastName"
-            onChange={handleChange}
-          />
-        </div>
+       
         <div className="flex-row space-between my-2">
           <label htmlFor="email">Email:</label>
           <input
@@ -84,4 +75,4 @@ function Signup(props) {
   );
 }
 
-export default Signup;
+export default Register;

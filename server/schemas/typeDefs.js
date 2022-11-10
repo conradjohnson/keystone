@@ -14,11 +14,13 @@ const typeDefs = gql`
     state: String
     country: String
     zip: String
-    value: Float
+    value: Int
+    lat: String
+    lng: String
     description: String
     images: [String]
     forSale: Boolean
-    salePrice: Float
+    salePrice: Int
     
   }
 
@@ -46,9 +48,9 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(name: String!, email: String!, password: String!): Auth
-    addProperty(address: String, address2: String, city: String, state: String, zip: String, images: [String], lat: String, lng: String, value: Float ): Property
+    addProperty(address: String, address2: String, city: String, state: String, zip: String, images: [String], lat: String, lng: String, value: Int ): Property
     updateUser(_id: ID!, name: String, email: String, password: String, property: ID): User
-    updateProperty(_id: ID!, forSale: Boolean, salePrice: Float, NftUri: String, isNft: Boolean, images: [String], lat: String, lng: String, value: Float ): Property
+    updateProperty(_id: ID!, forSale: Boolean, salePrice: Int, NftUri: String, isNft: Boolean, images: [String], lat: String, lng: String, value: Int ): Property
     login(email: String!, password: String!): Auth
   }
 `;

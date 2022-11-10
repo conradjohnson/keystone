@@ -8,17 +8,19 @@ const propertyTxSchema = new Schema({
     default: Date.now
   },
   seller: {
-
+    type: Schema.Types.ObjectId,
+      ref: 'User'
   },
   buyer: {
-
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   },
-  products: [
+  property: 
     {
       type: Schema.Types.ObjectId,
-      ref: 'Product'
+      ref: 'Property'
     }
-  ]
+  
 });
 
 const PropertyTx = mongoose.model('PropertyTx', propertyTxSchema);

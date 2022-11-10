@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dashboard Template</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <!--Replace with your tailwind.css once created-->
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body
+    class="leading-normal tracking-normal text-gray-900"
+    style="font-family: 'Source Sans Pro', sans-serif"
+  >
+    <div
+      class="h-screen pb-14 bg-right bg-cover"
+      style="background-image: url('bg.svg')"
+    >
+      <!--Nav-->
+      <div class="w-full container mx-auto p-6">
+        <div class="w-full flex items-center justify-between">
+          <a
+            class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+            href="#"
+          >
+            KeyStone Logo
+          </a>
+
+          <div class="flex w-1/2 justify-end content-center">
+            <a
+              class="inline-block text-blue-700 no-underline hover:text-indigo-900 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4"
+              href="#"
+            >
+              Login
+            </a>
+            <a
+              class="inline-block text-blue-700 no-underline hover:text-indigo-900 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4"
+              href="#"
+            >
+              Register
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!--Main-->
+      <div
+        class="container pt-6 md:pt-12 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center justify-center justify-around"
+      >
+        <!--Left Col-->
+        <main
+          class="flex flex-col h-contain w-2/5 items-center rounded shadow-lg"
+        >
+          <h1
+            class="my-4 text-3xl md:text-5xl text-purple-800 font-bold leading-tight text-center md:text-left slide-in-bottom-h1"
+          >
+            Listed Properties:
+          </h1>
+          <div
+            class="max-h-screen overflow-y-scroll snap snap-y snap-mandatory no-scrollbar slide-in-bottom-h1"
+          >
+            <section
+              class="max-w-sm justify-center overflow-hidden border-2 border-purple-800 bounce-top-cards snap-start my-4"
+            >
+              <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2 text-center">
+                  NAME OF PROPERTY
+                </div>
+                <img
+                  class="w-full"
+                  src="https://www.kbhome.com/globalassets/images/community-images/texas/dallas---fort-worth/copper-creek-53163/renderings/kbdfw_coppercreek_1813-exterior_1157w_rev-1200.jpg"
+                  alt="Sunset in the mountains"
+                />
+              </div>
+              <div class="px-6 pt-4 pb-2 flex flex-col">
+                <span
+                  class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  >Address:</span
+                >
+                <span
+                  class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  >Price:</span
+                >
+                <button
+                  class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 my-3 border-b-4 border-purple-700 hover:border-purple-500 rounded bounce-top-cards slide-in-bottom-h1"
+                >
+                  Edit Sale
+                </button>
+              </div>
+            </section>
+            <section
+              class="max-w-sm justify-center overflow-hidden border-2 border-purple-800 bounce-top-cards snap-start my-4"
+            >
+              <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2 text-center">
+                  NAME OF PROPERTY
+                </div>
+                <img
+                  class="w-full"
+                  src="https://www.kbhome.com/globalassets/images/community-images/texas/dallas---fort-worth/copper-creek-53163/renderings/kbdfw_coppercreek_1813-exterior_1157w_rev-1200.jpg"
+                  alt="Sunset in the mountains"
+                />
+              </div>
+              <div class="px-6 pt-4 pb-2 flex flex-col">
+                <span
+                  class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  >Address:</span
+                >
+                <span
+                  class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  >Price:</span
+                >
+                <button
+                  class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 my-3 border-b-4 border-purple-700 hover:border-purple-500 rounded bounce-top-cards slide-in-bottom-h1"
+                >
+                  Edit Sale
+                </button>
+              </div>
+            </section>
+            <section
+              class="max-w-sm justify-center overflow-hidden border-2 border-purple-800 bounce-top-cards snap-start my-4"
+            >
+              <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2 text-center">
+                  NAME OF PROPERTY
+                </div>
+                <img
+                  class="w-full"
+                  src="https://www.kbhome.com/globalassets/images/community-images/texas/dallas---fort-worth/copper-creek-53163/renderings/kbdfw_coppercreek_1813-exterior_1157w_rev-1200.jpg"
+                  alt="Sunset in the mountains"
+                />
+              </div>
+              <div class="px-6 pt-4 pb-2 flex flex-col">
+                <span
+                  class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  >Address:</span
+                >
+                <span
+                  class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  >Price:</span
+                >
+                <button
+                  class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 my-3 border-b-4 border-purple-700 hover:border-purple-500 rounded bounce-top-cards slide-in-bottom-h1"
+                >
+                  Edit Sale
+                </button>
+              </div>
+            </section>
+          </div>
+        </main>
+
+        <!--Right Col-->
+        <main
+          class="flex flex-col h-contain w-2/5 items-center rounded shadow-lg bg-white"
+        >
+          <h1
+            class="my-4 text-3xl md:text-5xl text-purple-800 font-bold leading-tight text-center md:text-left slide-in-bottom-h1"
+          >
+            Unlisted Properties:
+          </h1>
+          <div
+            class="max-h-screen overflow-y-scroll snap snap-y snap-mandatory no-scrollbar slide-in-bottom-h1"
+          >
+          <section
+          class="max-w-sm justify-center overflow-hidden border-2 border-purple-800 bounce-top-cards snap-start my-4"
+        >
+          <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2 text-center">
+              NAME OF PROPERTY
+            </div>
+            <img
+              class="w-full"
+              src="https://www.kbhome.com/globalassets/images/community-images/texas/dallas---fort-worth/copper-creek-53163/renderings/kbdfw_coppercreek_1813-exterior_1157w_rev-1200.jpg"
+              alt="Sunset in the mountains"
+            />
+          </div>
+          <div class="px-6 pt-4 pb-2 flex flex-col">
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >Address:</span
+            >
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >Price:</span
+            >
+            <button
+              class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 my-3 border-b-4 border-purple-700 hover:border-purple-500 rounded bounce-top-cards slide-in-bottom-h1"
+            >
+              List For Sale
+            </button>
+          </div>
+        </section>
+          <section
+          class="max-w-sm justify-center overflow-hidden border-2 border-purple-800 bounce-top-cards snap-start my-4"
+        >
+          <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2 text-center">
+              NAME OF PROPERTY
+            </div>
+            <img
+              class="w-full"
+              src="https://www.kbhome.com/globalassets/images/community-images/texas/dallas---fort-worth/copper-creek-53163/renderings/kbdfw_coppercreek_1813-exterior_1157w_rev-1200.jpg"
+              alt="Sunset in the mountains"
+            />
+          </div>
+          <div class="px-6 pt-4 pb-2 flex flex-col">
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >Address:</span
+            >
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >Price:</span
+            >
+            <button
+              class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 my-3 border-b-4 border-purple-700 hover:border-purple-500 rounded bounce-top-cards slide-in-bottom-h1"
+            >
+            List For Sale
+            </button>
+          </div>
+        </section>
+          <section
+          class="max-w-sm justify-center overflow-hidden border-2 border-purple-800 bounce-top-cards snap-start my-4"
+        >
+          <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2 text-center">
+              NAME OF PROPERTY
+            </div>
+            <img
+              class="w-full"
+              src="https://www.kbhome.com/globalassets/images/community-images/texas/dallas---fort-worth/copper-creek-53163/renderings/kbdfw_coppercreek_1813-exterior_1157w_rev-1200.jpg"
+              alt="Sunset in the mountains"
+            />
+          </div>
+          <div class="px-6 pt-4 pb-2 flex flex-col">
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >Address:</span
+            >
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >Price:</span
+            >
+            <button
+              class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 my-3 border-b-4 border-purple-700 hover:border-purple-500 rounded bounce-top-cards slide-in-bottom-h1"
+            >
+            List For Sale
+            </button>
+          </div>
+        </section>
+          <section
+          class="max-w-sm justify-center overflow-hidden border-2 border-purple-800 bounce-top-cards snap-start my-4"
+        >
+          <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2 text-center">
+              NAME OF PROPERTY
+            </div>
+            <img
+              class="w-full"
+              src="https://www.kbhome.com/globalassets/images/community-images/texas/dallas---fort-worth/copper-creek-53163/renderings/kbdfw_coppercreek_1813-exterior_1157w_rev-1200.jpg"
+              alt="Sunset in the mountains"
+            />
+          </div>
+          <div class="px-6 pt-4 pb-2 flex flex-col">
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >Address:</span
+            >
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >Price:</span
+            >
+            <button
+              class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 my-3 border-b-4 border-purple-700 hover:border-purple-500 rounded bounce-top-cards slide-in-bottom-h1"
+            >
+            List For Sale
+            </button>
+          </div>
+        </section>
+          <section
+          class="max-w-sm justify-center overflow-hidden border-2 border-purple-800 bounce-top-cards snap-start my-4"
+        >
+          <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2 text-center">
+              NAME OF PROPERTY
+            </div>
+            <img
+              class="w-full"
+              src="https://www.kbhome.com/globalassets/images/community-images/texas/dallas---fort-worth/copper-creek-53163/renderings/kbdfw_coppercreek_1813-exterior_1157w_rev-1200.jpg"
+              alt="Sunset in the mountains"
+            />
+          </div>
+          <div class="px-6 pt-4 pb-2 flex flex-col">
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >Address:</span
+            >
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >Price:</span
+            >
+            <button
+              class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 my-3 border-b-4 border-purple-700 hover:border-purple-500 rounded bounce-top-cards slide-in-bottom-h1"
+            >
+            List For Sale
+            </button>
+          </div>
+        </section>
+          </div>
+          <button
+            class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 my-3 border-b-4 border-purple-700 hover:border-purple-500 rounded bounce-top-cards slide-in-bottom-h1"
+          >
+            Add Property
+          </button>
+        </main>
+
+        <!--Footer-->
+        <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
+          <a class="text-gray-500 no-underline hover:no-underline" href="#"
+            >&copy; JJJ 2022</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

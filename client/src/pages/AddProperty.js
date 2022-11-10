@@ -5,15 +5,16 @@ import { useQuery } from '@apollo/client';
 import { QUERY_USER } from '../utils/queries';
 
 
-function Profile(){
+function AddProperty(){
     return (
         <>
           <div className="container my-1">
-            <Link to="/">← Back to Home</Link>
-            <Link to="/add-property">Add Property</Link>
+           Add Property Form here
+           <form><input type="text" name="address" placeholder="123 Main" />
+           <button type="submit" value="submit!">nnnn</button></form>
           </div>
         </>)
             
 }
 
-export default Profile;
+export default AddProperty;

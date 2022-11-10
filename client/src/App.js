@@ -15,6 +15,8 @@ import Home from './pages/Home';
 
 import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
+import AddProperty from './pages/AddProperty';
 import Register from './pages/Register';
 import Nav from './components/Nav';
 import { StoreProvider } from './utils/GlobalState';
@@ -57,6 +59,14 @@ function App() {
               <Route 
                 path="/register" 
                 element={<Register />} 
+              />
+               <Route 
+                path="/profile" 
+                element={<Profile />} 
+              />
+               <Route 
+                path="/add-property" 
+                element={<AddProperty />} 
               />
               {/*
               <Route 

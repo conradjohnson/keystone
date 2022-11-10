@@ -15,6 +15,8 @@ const typeDefs = gql`
     country: String
     zip: String
     value: Int
+    lat: String
+    lng: String
     description: String
     images: [String]
     forSale: Boolean

@@ -21,6 +21,13 @@ const typeDefs = gql`
     images: [String]
     forSale: Boolean
     salePrice: Int
+    sqft: Int
+    bedrooms: Int
+    bathrooms: Int
+    yearBuilt: Int
+    ifNft: Boolean
+    NftUri: String
+    
     
   }
 

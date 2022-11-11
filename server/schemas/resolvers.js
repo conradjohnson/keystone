@@ -1,6 +1,49 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Property, Category, PropertyTx } = require('../models');
 const { signToken } = require('../utils/auth');
+const fetch = require('node-fetch');
+
+async function getPropertyInfo(address1, address2){
+
+  address1 = encodeURIComponent(address1);
+  address2 = encodeURIComponent(address2);
+  
+  let propertyDetailURL = `https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/basicprofile?`;
+  propertyDetailURL += `address1=${address1}`;
+  propertyDetailURL += `&address2=${address2}`;
+  //propertyDetailURL+= `&apikey=8435ffe43427e5050fc351ac57362d9a`;
+  console.log(propertyDetailURL);
+  let propertyObj = {};
+
+  let results = await fetch(propertyDetailURL, {
+    method: "GET",
+    headers: {
+      "accept": "application/json;charset=UTF-8",
+      "apikey": "8435ffe43427e5050fc351ac57362d9a"
+   }
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log(result)
+    if (result.status.msg==="SuccessWithResult") {
+    propertyObj.lat = result.property[0].location.latitude;
+    propertyObj.lng = result.property[0].location.longitude;
+    propertyObj.value = result.property[0].assessment.market.mktTtlValue;
+    propertyObj.bedrooms = result.property[0].building.rooms.beds;
+    propertyObj.bathrooms = result.property[0].building.rooms.bathsFull;
+    propertyObj.yearBuilt = result.property[0].summary.yearBuilt;
+    propertyObj.sqft = result.property[0].building.size.bldgSize;
+    
+
+  } else{
+    return false;
+  }
+
+  }
+    )
+  .catch(error => console.log('error', error));
+  return propertyObj;
+}
 
 
 const resolvers = {
@@ -36,23 +79,38 @@ const resolvers = {
       return { token, user };
     },
     addProperty: async (parent, args, context) => {
-      console.log(context);
+      // geoip lookup here - node-fetch
+      let addressString1 = args.address;
+      let addressString2 = args.city+", "+args.state;
       if (context.user) {
-        const property = new Property({
-          address: args.address,
-          address2: args.address2,
-          city: args.city,
-          state: args.state,
-          zip: args.zip,
-          images: args.images,
-          lat: args.lat,
-          lng: args.lng,
-          value: args.value
-        });
+      let propertyObj = await getPropertyInfo(addressString1, addressString2);
+      //get and store values
+        if (propertyObj){
+      
+        
+          const property = new Property({
+            address: args.address,
+            city: args.city,
+            state: args.state,
+            zip: args.zip,
+            lat: propertyObj.lat,
+            lng: propertyObj.lng,
+            value: propertyObj.value,
+            bedrooms: propertyObj.bedrooms,
+            bathrooms: propertyObj.bathrooms,
+            sqft: propertyObj.sqft,
+            yearBuilt: propertyObj.yearBuilt
 
-        await User.findByIdAndUpdate(context.user._id, { $push: { properties: property } });
-        await Property.create(property);
-        return property;
+          });
+
+          await User.findByIdAndUpdate(context.user._id, { $push: { properties: property } });
+          const newProperty = await Property.create(property);
+          return newProperty;
+        } else {
+          //can't find the property in our property search.
+          return false;
+        }
+
       }
 
       throw new AuthenticationError('Not logged in');

@@ -41,8 +41,20 @@ const propertySchema = new Schema({
   value: {
     type: Number
   },
+  bedrooms: {
+    type: Number
+  },
+  bathrooms: {
+    type: Number
+  },
   description: {
     type: String
+  },
+  yearBuilt:{
+    type:Number
+  },
+  sqft:{
+    type:Number
   },
   images: [{
     type: String

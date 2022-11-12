@@ -84,9 +84,17 @@ function PropertyDetail(){
           <div className="container my-1">
             <h2>PropertyDetail: {id} </h2>
             <div>
-              <h2></h2>
+              <h2>{property.address}</h2>
             </div>
+            {hasImg ? (
+               <span>{property.images[0]}</span>
+            ):(
+              <a></a>
+            ) }
+           
+            
             {Auth.loggedIn() ? (
+            
             <form onSubmit={submitImg}>
               <input
                 filename={file} 
@@ -97,6 +105,7 @@ function PropertyDetail(){
               
               <button type="submit">Submit</button>
             </form>
+            
             ) : (
               <div>Login</div>
             )}

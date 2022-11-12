@@ -52,14 +52,11 @@ const resolvers = {
       return await Property.find();
     },
 
-    saleproperties: async () => {
-      return await Property.find({forSale:true});
-    },
     
-    property: async (parent, args, context)=>{
-      return await Property.findById(args._id);
+    
+    property: async (parent, {propertyId}, context)=>{
+      return await Property.findById(propertyId);
     },
-
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate('properties');

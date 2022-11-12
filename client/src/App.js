@@ -17,6 +17,7 @@ import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import PropertyDetail from './pages/PropertyDetail';
+import PropertyDetail2 from './pages/PropertyDetail2';
 import AddProperty from './pages/AddProperty';
 import Register from './pages/Register';
 import Nav from './components/Nav';
@@ -81,9 +82,9 @@ function App() {
               <Route 
                 path="/products/:id" 
                 element={<Detail />} 
-              />*/}
+  />*/}
              <Route 
-                path="/property/:_id" 
+                path="/property/:id" 
                 element={<PropertyDetail />} 
               />
               <Route 

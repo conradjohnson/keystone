@@ -27,8 +27,7 @@ const typeDefs = gql`
     yearBuilt: Int
     ifNft: Boolean
     NftUri: String
-    
-    
+       
   }
 
 
@@ -46,9 +45,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    properties: [Property]
-    saleproperties: [Property]
-    property(_id: ID!): Property
+    properties(forSale: Boolean): [Property]
+    property(propertyId: ID!): Property
     user: User
    
   }

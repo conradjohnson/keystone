@@ -1,25 +1,53 @@
 import React, {useEffect, useState} from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
-import { QUERY_USER, QUERY_PROPERTY } from '../utils/queries';
+import { QUERY_USER, QUERY_PROPERTY, QUERY_USER_PROPERTY, QUERY_PROPERTIES } from '../utils/queries';
 import { useStoreContext } from '../utils/GlobalState';
 import axios from 'axios';
 
-async function PropertyDetail(){
+function PropertyDetail(){
  
-
-    const { _id } = useParams();
-    const { loading, data } = useQuery(QUERY_PROPERTY, {
-      variables: {_id: _id}
+    const navigate = useNavigate();
+    const { id } = useParams();
+     // get the property details from the DB!
+    const { loading, error, data } = useQuery( QUERY_PROPERTY, {
+      // pass URL parameter
+      variables: { propertyId: id },
     });
-    // get the property details from the DB!
-  //  const property = data.property;
-  //  const needsImg = (property.images.length === 0) ? false : true;
-  
-  const property = data?.property || {};
-  console.log(property);
-   // console.log("NeedsImg:" + needsImg);
+   
+    let property; 
+    let hasImg = false;
+    let forSale = false;
+    if (data){
+      property = data.property;
+      hasImg = property.images.length;
+      forSale = property.forSale;
+    } else {
+      navigate(`/404`);
+    }
+    console.log(property);
+    const { loading:loading2, error:error2, data:data2 } = useQuery( QUERY_USER);
+
+    let user;
+    function checkProp(id, properties){
+      let obj = properties.find(o => o._id === id);
+      return obj;
+    }
+    
+    let isOwner = false;
+
+    if (Auth.loggedIn() && data2){
+      user = data2.user;
+      isOwner = checkProp(id, user.properties);
+    }
+    console.log(forSale);
+       
+    
+    // set to true for now until we add in bc transactions 
+    let isNft = true;
+    
+      
     // Property Detail States:
     // Logged In
     // (Owner) - Needs Image
@@ -31,7 +59,7 @@ async function PropertyDetail(){
     // 
 
     // (Owner) - Needs Image
-    // all image upload functions
+    // // all image upload functions
     const [image, setImage] = useState(null);
     const [file, setFile] = useState();
 
@@ -40,7 +68,7 @@ async function PropertyDetail(){
         event.preventDefault()
         const formData = new FormData()
         formData.append("image", file)
-        formData.append("propid", _id)
+        formData.append("propid", id)
         const result = await axios.post('/api/image-upload', formData, { headers: {'Content-Type': 'multipart/form-data'}})
         setImage('/img/prop/'+result.data.filename)
       }
@@ -50,32 +78,25 @@ async function PropertyDetail(){
         
         <>
           <div className="container my-1">
-            <h2>PropertyDetail: {_id}</h2>
+            <h2>PropertyDetail: {id} </h2>
             <div>
               <h2></h2>
             </div>
-
-           { Auth.loggedIn() ? (
-
-            <form onSubmit={submitImg} method="post" accept="image/jpeg">
-                <input type="hidden" name="propid" value={_id}/>
-                <input
+            {Auth.loggedIn() ? (
+            <form onSubmit={submitImg}>
+              <input
                 filename={file} 
                 onChange={e => setFile(e.target.files[0])} 
                 type="file" 
                 accept="image/*"
-                ></input>
-               
-                <button type="submit">Submit</button>
+              ></input>
+              
+              <button type="submit">Submit</button>
             </form>
             ) : (
-              <div>
-                Other!
-                </div>
-            )
-            }
-        { image && <img src={image} />}
-          </div>
+              <div>Login</div>
+            )}
+          </div> 
         </>
     )
 }

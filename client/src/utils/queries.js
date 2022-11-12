@@ -24,6 +24,7 @@ export const QUERY_PROPERTY = gql`
       yearBuilt
       ifNft
       NftUri
+      sellerId
     }
   }
 `;

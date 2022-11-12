@@ -74,6 +74,10 @@ const propertySchema = new Schema({
   salePrice: {
     type: Number,
     default: -1
+  },
+  sellerId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   }
 });
 

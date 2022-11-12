@@ -26,7 +26,7 @@ db.once('open', async () => {
       value: 1000000,
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-      images: ['https://i.imgur.com/AU2PuxD.jpg', 'https://i.imgur.com/JvDPGC7.jpg'],
+      images: ['image-1668264965797.jpg', 'image-1668265071468.jpg'],
       forSale: false
     },
     {
@@ -38,7 +38,7 @@ db.once('open', async () => {
       value: 1200000,
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-      images: ['https://i.imgur.com/QPbNaoV.jpg'],
+      images: ['image-1668265074930.jpg'],
       forSale: true,
       salePrice: 450000
     },
@@ -51,7 +51,7 @@ db.once('open', async () => {
       value: 12000000,
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-      images: ['https://i.imgur.com/JZFeETh.jpg'],
+      images: ['image-1668265078054.jpg'],
       forSale: false
     },
     {
@@ -63,7 +63,7 @@ db.once('open', async () => {
       value: 500000,
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-      images: ['https://i.imgur.com/wz8Rq38.jpg', 'https://i.imgur.com/bsd5a2l.jpg'],
+      images: ['image-1668265081266.jpg', 'image-1668265084780.jpg'],
       forSale: false
     },
     {
@@ -75,7 +75,7 @@ db.once('open', async () => {
       value: 1500000,
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-      images: ['https://i.imgur.com/kvK8TFq.jpg'],
+      images: ['image-1668265090030.jpg'],
       forSale: true,
       salePrice: 3500000
     },
@@ -88,7 +88,7 @@ db.once('open', async () => {
       value: 1500000,
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-      images: ['https://i.imgur.com/ObIluPG.jpg'],
+      images: ['image-1668265097351.jpg'],
       forSale: false
     },
     {
@@ -100,7 +100,7 @@ db.once('open', async () => {
       value: 2500000,
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-      images: ['https://i.imgur.com/hzSlRcD.jpg', 'https://i.imgur.com/FIt1wrd.jpg'],
+      images: ['image-1668265100852.jpg', 'image-1668265116469.jpg'],
       forSale: false
     },
     {
@@ -112,7 +112,7 @@ db.once('open', async () => {
       value: 2200000,
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-      images: ['https://i.imgur.com/sh0pot8.jpg'],
+      images: ['image-1668265116469.jpg'],
       forSale: true,
       salePrice: 2500000
     },
@@ -125,7 +125,7 @@ db.once('open', async () => {
       value: 3200000,
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-      images: ['https://i.imgur.com/TNS7jo0.jpg'],
+      images: ['image-1668265121164.jpg'],
       forSale: false
     },
 

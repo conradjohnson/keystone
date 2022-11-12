@@ -21,9 +21,10 @@ function PropertyWidget() {
               <h2>House List:</h2>
               {state.properties.length ? (
                 <div className="flex-row">
-                  {filterProperties().map((property) => (
-                    <li key={property._id}>
-                      _id={property._id}
+                  {filterProperties().map((property) => ( 
+                    
+                    <li key={property._id}><a href={"/property/" + property._id}>
+                      _id={property._id}</a>
                       images={property.image}
                       address={property.address}
                       value={property.value}

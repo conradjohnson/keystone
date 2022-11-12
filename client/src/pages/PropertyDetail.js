@@ -16,15 +16,17 @@ function PropertyDetail(){
       variables: { propertyId: id },
     });
    
-    let property; 
+    let property = {}; 
     let hasImg = false;
+    let imgPath = "/img/prop/";
     let forSale = false;
     if (data){
       property = data.property;
       hasImg = property.images.length;
       forSale = property.forSale;
+      imgPath += property.images[0];
     } else {
-      navigate(`/404`);
+      //navigate(`/404`);
     }
     console.log(property);
     const { loading:loading2, error:error2, data:data2 } = useQuery( QUERY_USER);
@@ -84,12 +86,12 @@ function PropertyDetail(){
           <div className="container my-1">
             <h2>PropertyDetail: {id} </h2>
             <div>
-              <h2>{property.address}</h2>
+              <h2></h2>
             </div>
             {hasImg ? (
-               <span>{property.images[0]}</span>
+               <img src={imgPath} width="400"/>
             ):(
-              <a></a>
+              <img src="/img/defaultHome.png" alt="missing property photo" width="400" />
             ) }
            
             

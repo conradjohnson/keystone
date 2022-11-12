@@ -11,6 +11,62 @@ export const LOGIN = gql`
   }
 `;
 
+export const UPDATE_PROPERTY_SALE = gql`
+  mutation UPDATE_PROPERTY_SALE($id: ID!, $salePrice: Int, $forSale: Boolean, $sellerId: ID) {
+    updateProperty(_id: $id, salePrice: $salePrice, forSale: $forSale, sellerId: $sellerId) {
+      _id
+      address
+      address2
+      city
+      state
+      country
+      zip
+      value
+      lat
+      lng
+      description
+      images
+      forSale
+      salePrice
+      sqft
+      bedrooms
+      bathrooms
+      yearBuilt
+      ifNft
+      NftUri
+      sellerId
+    }
+  }
+`;
+
+export const EXCHANGE_PROPERTY = gql`
+mutation ExchangeProperty($sellerId: ID!, $buyerId: ID!, $propId: ID!) {
+  exchangeProperty(sellerId: $sellerId, buyerId: $buyerId, propId: $propId) {
+    _id
+    address
+    address2
+    city
+    state
+    country
+    zip
+    value
+    lat
+    lng
+    description
+    images
+    forSale
+    salePrice
+    sqft
+    bedrooms
+    bathrooms
+    yearBuilt
+    ifNft
+    NftUri
+  }
+}
+`;
+
+
 export const ADD_PROPERTY = gql`
   mutation addProperty($address: String, $city: String, $state: String, $zip: String) {
     addProperty(address: $address, city: $city, state: $state, zip: $zip) {

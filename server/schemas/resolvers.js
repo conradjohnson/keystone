@@ -76,6 +76,21 @@ const resolvers = {
 
       return { token, user };
     },
+    exchangeProperty: async (parent, {sellerId, buyerId, propId}, context) => {
+      
+      console.log(sellerId);
+      // remove from the seller's properties
+      await User.findByIdAndUpdate(sellerId, { $pull: { properties:  propId } });
+      // add to the buyer's properties
+      await User.findByIdAndUpdate(buyerId, { $push: { properties: propId } });
+      // Update the property to not for sale and zero out the sale price.
+      let property = Property.findByIdAndUpdate(propId, {forSale:false, salePrice: -1}, { new: true });
+      // return the property
+      return property;
+
+      //throw new AuthenticationError('Not logged in');
+
+    },
     addProperty: async (parent, args, context) => {
       // geoip lookup here - node-fetch
       let addressString1 = args.address;
@@ -131,7 +146,8 @@ const resolvers = {
         images: args.images,
         lat: args.lat,
         lng: args.lng,
-        value: args.value
+        value: args.value,
+        sellerId: args.sellerId
       }, { new: true });
     },
     login: async (parent, { email, password }) => {

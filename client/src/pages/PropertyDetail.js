@@ -46,7 +46,7 @@ function PropertyDetail(){
     
     // set to true for now until we add in bc transactions 
     let isNft = true;
-    
+
       
     // Property Detail States:
     // Logged In
@@ -57,8 +57,12 @@ function PropertyDetail(){
     // (Visitor) - View Propety Detail
     // (Logged In Non-Owner) - If listed - buy
     // 
-
-    // (Owner) - Needs Image
+    // Flags:
+    //  hasImg = true if property has at least 1 image
+    //  isOwner = true if the logged in user is the owner of the property
+    //  isNft = true if the property has an NFT created for it and ready for sale
+    //  forSale = true if the property is currently listed for sale
+    //
     // // all image upload functions
     const [image, setImage] = useState(null);
     const [file, setFile] = useState();

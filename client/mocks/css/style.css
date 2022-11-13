@@ -75,6 +75,10 @@
   .h-contain-xl{
       height: 700px
   }
+
+  .carouselImg{
+    object-fit: contain;
+  }
   
   /* Animation CSS */
       /* ----------------------------------------------

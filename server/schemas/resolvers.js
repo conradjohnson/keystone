@@ -85,6 +85,8 @@ const resolvers = {
       await User.findByIdAndUpdate(buyerId, { $push: { properties: propId } });
       // Update the property to not for sale and zero out the sale price.
       let property = Property.findByIdAndUpdate(propId, {forSale:false, salePrice: -1}, { new: true });
+      // TODO Add TX to TX Table
+      
       // return the property
       return property;
 

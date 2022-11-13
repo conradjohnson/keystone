@@ -12,8 +12,8 @@ export const LOGIN = gql`
 `;
 
 export const UPDATE_PROPERTY_SALE = gql`
-  mutation UPDATE_PROPERTY_SALE($id: ID!, $salePrice: Int, $forSale: Boolean, $sellerId: ID) {
-    updateProperty(_id: $id, salePrice: $salePrice, forSale: $forSale, sellerId: $sellerId) {
+  mutation UPDATE_PROPERTY_SALE($id: ID!, $salePrice: Int, $forSale: Boolean, $sellerId: ID, $isNft: Boolean $NftUri: String, $NftTokenId: String) {
+    updateProperty(_id: $id, salePrice: $salePrice, forSale: $forSale, sellerId: $sellerId, isNft: $isNft, NftUri: $NftUri, NftTokenId: $NftTokenId ) {
       _id
       address
       address2
@@ -34,6 +34,7 @@ export const UPDATE_PROPERTY_SALE = gql`
       yearBuilt
       ifNft
       NftUri
+      NftTokenId
       sellerId
     }
   }

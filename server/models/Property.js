@@ -67,6 +67,10 @@ const propertySchema = new Schema({
     type: String,
     trim: true
   },
+  NftTokenId:{
+    type: String,
+    trim: true
+  },
   forSale: {
     type: Boolean,
     default: false

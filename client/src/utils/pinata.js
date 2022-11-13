@@ -1,9 +1,9 @@
 //const dotenv = require('dotenv');
 // dotenv.config();
-//const key = process.env.REACT_APP_PINATA_KEY;
-//const secret = process.env.REACT_APP_PINATA_SECRET;
- const key = "49a3429d423fd4c3da4b";
- const secret = "28f8159c0cda3d7323c7a6ae5e8a70c2a3ebc8eed33f79e30bbebd20cd77143e";
+// const key = process.env.REACT_APP_PINATA_KEY;
+// const secret = process.env.REACT_APP_PINATA_SECRET;
+  const key = "49a3429d423fd4c3da4b";
+  const secret = "28f8159c0cda3d7323c7a6ae5e8a70c2a3ebc8eed33f79e30bbebd20cd77143e";
 
 const axios = require('axios');
 

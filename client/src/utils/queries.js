@@ -24,6 +24,7 @@ export const QUERY_PROPERTY = gql`
       yearBuilt
       ifNft
       NftUri
+      NftTokenId
       sellerId
     }
   }
@@ -106,8 +107,8 @@ export const QUERY_PROPERTIES = gql`
 `;
 
 export const QUERY_SALE_PROPERTIES = gql`
-  query getSaleProperties {
-  properties(forSale: true) {
+  query getSaleProperties($forSale: Boolean) {
+  properties(forSale: $forSale) {
     _id
     address
     address2

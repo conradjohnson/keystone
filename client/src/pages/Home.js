@@ -3,12 +3,14 @@ import PropertyWidget from "../components/PropertyWidget";
 import { useStoreContext } from '../utils/GlobalState';
 import { useQuery } from '@apollo/client';
 import { UPDATE_PROPERTIES } from '../utils/actions';
-import { QUERY_PROPERTIES } from '../utils/queries';
+import { QUERY_PROPERTIES, QUERY_SALE_PROPERTIES } from '../utils/queries';
 //import spinner from '../../assets/spinner.gif';
 const Home = () => {
   const [state, dispatch] = useStoreContext();
   const { currentCategory } = state;
-  const { loading, data } = useQuery(QUERY_PROPERTIES);
+  const { loading, data } = useQuery(QUERY_SALE_PROPERTIES, {
+    variables: {
+      "forSale": true}});
 
   
   useEffect(() => {

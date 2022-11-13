@@ -27,6 +27,7 @@ const typeDefs = gql`
     yearBuilt: Int
     ifNft: Boolean
     NftUri: String
+    NftTokenId: String
     sellerId: ID
        
   }
@@ -57,7 +58,7 @@ const typeDefs = gql`
     addProperty(address: String, address2: String, city: String, state: String, zip: String, images: [String], lat: String, lng: String, value: Int ): Property
     exchangeProperty(sellerId: ID!, buyerId: ID!, propId: ID!): Property
     updateUser(_id: ID!, name: String, email: String, password: String, properties: [ID]): User
-    updateProperty(_id: ID!, forSale: Boolean, salePrice: Int, NftUri: String, isNft: Boolean, images: [String], lat: String, lng: String, value: Int, sellerId: ID ): Property
+    updateProperty(_id: ID!, forSale: Boolean, salePrice: Int, NftTokenId: String, NftUri: String, isNft: Boolean, images: [String], lat: String, lng: String, value: Int, sellerId: ID ): Property
     login(email: String!, password: String!): Auth
   }
 `;

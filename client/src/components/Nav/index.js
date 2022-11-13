@@ -7,11 +7,15 @@ function Nav() {
   const [walletAddress, setWallet] = useState("");
   const [status, setStatus] = useState("");
   
-  useEffect(async () => { //TODO: implement
-    const {address, status} = await getCurrentWalletConnected();
-    setWallet(address);
-    setStatus(status); 
-    addWalletListener();
+  useEffect( () => { //TODO: implement
+    async function fetchData() {
+      const {address, status} = await getCurrentWalletConnected();
+      setWallet(address);
+      setStatus(status); 
+      addWalletListener();
+    }
+
+    fetchData();
   }, []);
 
   const connectWalletPressed = async () => {

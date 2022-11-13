@@ -49,8 +49,8 @@ async function getPropertyInfo(address1, address2){
 
 const resolvers = {
   Query: {
-    properties: async () => {
-      return await Property.find();
+    properties: async (parent, args, context) => {
+      return await Property.find(args);
     },
 
     

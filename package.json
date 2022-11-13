@@ -16,5 +16,9 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.3.0"
+  },
+  "dependencies": {
+    "@alch/alchemy-web3": "^1.4.7",
+    "patch-package": "^6.5.0"
   }
 }

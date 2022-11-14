@@ -252,6 +252,8 @@ function PropertyDetail(){
               <dd>{property.address}</dd>
               <dt></dt>
               <dd>{property.city}, {property.state}</dd>
+              <dt>Description:</dt>
+              <dd>{property.description}</dd>
               <dt>SQFT:</dt>
               <dd>{property.sqft}</dd>
               <dt>Bedrooms</dt>

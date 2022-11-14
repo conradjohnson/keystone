@@ -123,7 +123,7 @@ function AddProperty(props){
         try {
            
             const mutationResponse = await addProperty({
-              variables: { address: addr1, city: city, state: st, zip: zip  },
+              variables: { address: addr1, city: city, state: st, zip: zip, description:formState.description  },
             }); 
             console.log('mutationResponse:');
             console.log(mutationResponse);
@@ -168,21 +168,14 @@ function AddProperty(props){
                 value={query}
             /><br/>
         */}
-            <input
-              type="text"
-              name="imgURL"
-              placeholder="https://imghost.com/img.jpg"
-            /><br/>
-            <input
+            
+            <textarea
               type="text"
               name="description"
               placeholder="property description"
-            /><br/>
-            <input
-             type="text"
-             name="value"
-             placeholder="$0?"
-            /><br/>
+              onChange={handleChange}
+            ></textarea><br/>
+           
             <button type="submit">submit!</button>
            </form>
           </div>

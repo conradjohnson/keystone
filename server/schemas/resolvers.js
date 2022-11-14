@@ -87,6 +87,13 @@ const resolvers = {
       let property = Property.findByIdAndUpdate(propId, {forSale:false, salePrice: -1}, { new: true });
       // TODO Add TX to TX Table
       
+      let propertyTx = PropertyTx.create({
+        seller: sellerId,
+        buyer: buyerId,
+        property, propId
+      }, { new: true });
+      
+      console.log(propertyTx);
       // return the property
       return property;
 

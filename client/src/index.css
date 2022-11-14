@@ -4,6 +4,13 @@
 
 @import "tailwindcss/utilities";
 
+body {
+  background-image: url('./assets/keystone-logo-stretch.gif');
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: 100% 100%;
+}
+
 .h-screen {
     height: 100vh;
   }

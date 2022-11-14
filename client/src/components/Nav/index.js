@@ -1,11 +1,14 @@
 import React, { useEffect, useState }  from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
+import { useQuery, useMutation } from '@apollo/client';
+import { UPDATE_USER_WALLET } from '../../utils/mutations';
 import { connectWallet, getCurrentWalletConnected, mintNFT } from "../../utils/interact";
 
 function Nav() {
   const [walletAddress, setWallet] = useState("");
   const [status, setStatus] = useState("");
+  const [updateUserWallet] = useMutation(UPDATE_USER_WALLET);
   
   useEffect( () => { //TODO: implement
     async function fetchData() {
@@ -18,10 +21,22 @@ function Nav() {
     fetchData();
   }, []);
 
+ 
+
+  const setUserWallet = async (walletAddress) =>{
+    let userId = Auth.getProfile().data._id
+    let updatedUser = await updateUserWallet( {
+      variables: {
+        "id": userId,
+        "wallet": walletAddress
+      }});
+  }
+
   const connectWalletPressed = async () => {
     const walletResponse = await connectWallet();
     setStatus(walletResponse.status);
     setWallet(walletResponse.address);
+    setUserWallet(walletResponse.address);
   };
   function addWalletListener() {
     if (window.ethereum) {
@@ -51,7 +66,9 @@ function Nav() {
   function showNavigation() {
     if (Auth.loggedIn()) {
       return (
+        
         <ul className="flex w-1/2 justify-end content-center">
+         
           <li className="inline-block text-blue-700 no-underline hover:text-indigo-900 hover:text-underline text-center h-auto p-4">
             <Link to="/profile">
               Profile

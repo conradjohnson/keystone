@@ -154,16 +154,29 @@ function PropertyDetail(){
     return (
         
         <>
-          <div className="container my-1">
-            <h2>PropertyDetail: {id} </h2>
-            <div>
-              <h2>{property.address}</h2>
-            </div>
-            {hasImg ? (
-               <img src={imgPath} width="400"/>
-            ):(
-              <img src="/img/defaultHome.png" alt="missing property photo" width="400" />
-            ) }
+        <div className="border-2 border-purple-800 my-4 px-40 align-center padding-auto">
+        <h2>PropertyDetail: {id} </h2>
+         <div className="max-w-sm justify-center overflow-hidden border-2 border-purple-800 my-4" key={property._id}>
+                      <div className="px-6 py-4">
+                      <a className="font-bold text-xl mb-2 text-center" href={"/property/" + property._id}>
+                     {property.address}
+                     {hasImg ? (
+                     <img className="w-full"
+                  src={"/img/prop/" + property.images[0]}
+                  alt="Property Picture"/>
+                  ):(
+                    <img src="/img/defaultHome.png" alt="missing property photo" width="400" />
+                  ) }
+                      <div className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                      Value: {property.value} </div>
+                      <div className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                      Price: {property.salePrice} </div>
+                      </a>
+                      </div>
+                    </div>
+          <div className="container my-1 ">
+            
+            
             <dl>
               <dt>Address:</dt>
               <dd>{property.address}</dd>
@@ -246,6 +259,7 @@ function PropertyDetail(){
             )
           }
           </div> 
+          </div>
         </>
     )
 }

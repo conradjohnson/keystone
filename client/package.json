@@ -34,8 +34,8 @@
     "url": "^0.11.0"
   },
   "scripts": {
-    "start": "react-app-rewired  --openssl-legacy-provider start",
-    "build": "react-app-rewired  --openssl-legacy-provider build",
+    "start": "GENERATE_SOURCEMAP=false react-app-rewired  --openssl-legacy-provider start",
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired  --openssl-legacy-provider build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },

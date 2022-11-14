@@ -33,7 +33,7 @@ function PropertyWidget() {
                       <div className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                       Value: {property.value} </div>
                       <div className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                      Price: {property.forSale} </div>
+                      Price: {property.salePrice} </div>
                       </a>
                       </div>
                     </div>

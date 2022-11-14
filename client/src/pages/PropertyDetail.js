@@ -4,7 +4,7 @@ import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER, QUERY_PROPERTY, QUERY_USER_PROPERTY, QUERY_PROPERTIES } from '../utils/queries';
 import { UPDATE_PROPERTY_SALE, EXCHANGE_PROPERTY, UPDATE_PROPERTY_NFT } from '../utils/mutations';
-import { mintNFT, getNFT, listNFT, cancelNFTSale, buyNFT } from "../utils/interact";
+import { mintNFT, getNFT, listNFT, cancelNFTSale, buyNFT, approveNFTTransfer, approveERC20Transfer } from "../utils/interact";
 import { useStoreContext } from '../utils/GlobalState';
 import axios from 'axios';
 const alchemyKey = "wss://eth-goerli.g.alchemy.com/ws/N5lg6Vk0u-FVp5oaIy7S9QUhzyVZ_PzX";
@@ -13,14 +13,22 @@ const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
 
-const contractABI = require('../utils/abi/NFTABI.json')
-const contractAddress = "0xD2B95c89c90A0dAE85F88470f257c1F5ea3DA643";
+const NFTContractABI = require('../utils/abi/NFTABI.json');
+const NFTContractAddress = "0xD2B95c89c90A0dAE85F88470f257c1F5ea3DA643";
+const ERC20ContractABI = require('../utils/abi/erc20ABI.json');
+const ERC20ContractAddress = "0x6B6e63454c42B32a1975bE39a22eed8fF8c4489C";
+const NFTMarketContractABI = require('../utils/abi/NFTMarketplaceABI.json');
+const NFTMarketContractAddress = "0xc6343805723EEe7180430A071B3BC02Df7e74429";
+
+
 
 function PropertyDetail(){
     const [formState, setFormState] = useState({ salePrice: ''});
     const [status, setStatus] = useState("");
     const [image, setImage] = useState(null);
     const [NFT, setNFT] = useState("");
+    const [isNFTApproved, setIsNFTApproved] = useState("");
+    const [isERC20Approved, setIsERC20Approved] = useState("");
     const [file, setFile] = useState();
     //const [property, setProperty]=useState({});
     const navigate = useNavigate();
@@ -38,11 +46,29 @@ function PropertyDetail(){
     useEffect( () => {
       async function fetchData(){
         if (typeof NFT != "number"){
-          addSmartContractListener();
+          addNFTMINTSmartContractListener(NFTContractABI, NFTContractAddress);
         }
       }
       fetchData();
     }, [NFT]);
+
+    useEffect( () => {
+      async function fetchData(){
+        if (!isNFTApproved){
+          addNFTApproveSmartContractListener(NFTContractABI, NFTContractAddress);
+        }
+      }
+      fetchData();
+    }, [isNFTApproved]);
+
+    useEffect( () => {
+      async function fetchData(){
+        if (!isERC20Approved){
+          addERC20ApproveSmartContractListener(ERC20ContractABI, ERC20ContractAddress);
+        }
+      }
+      fetchData();
+    }, [isERC20Approved]);
 
 
     let property = {};
@@ -113,8 +139,20 @@ function PropertyDetail(){
     // submitSale function
     const submitSale = async event => {
       event.preventDefault()
-
-      event.preventDefault()
+      //check nft contract for approval.
+      const NFTContract = new web3.eth.Contract(NFTContractABI, NFTContractAddress);
+      let currentWallet = window.ethereum.selectedAddress;
+      console.log(currentWallet);
+      console.log(NFTContractAddress);
+      const checkNFTApproval = await NFTContract.methods.isApprovedForAll(currentWallet, NFTMarketContractAddress).call();
+      if (!checkNFTApproval){
+        // send the tx to approve and start the listener
+        alert("Please first approve the Marketplace Contract");
+        const { status } = await approveNFTTransfer();
+        setStatus(status);
+      }
+      
+      
       const { status } = await listNFT(property.nftTokenId, parseInt(formState.salePrice));
       setStatus(status);
 
@@ -143,8 +181,8 @@ function PropertyDetail(){
       console.log("CreateNFT!: waiting to be minted") 
       }
     
-    function addSmartContractListener () {
-        const listenContract = new web3.eth.Contract(contractABI, contractAddress);  
+    function addNFTMINTSmartContractListener (ABI, contractAddy) {
+        const listenContract = new web3.eth.Contract(ABI, contractAddy);  
         listenContract.events.NewMint({}, async (error, data) => {
           if (error) {
             setStatus("😥 " + error.message);
@@ -164,6 +202,31 @@ function PropertyDetail(){
         });
       }
     
+      function addNFTApproveSmartContractListener (ABI, contractAddy) {
+        const listenContract = new web3.eth.Contract(ABI, contractAddy);  
+        //emit ApprovalForAll(owner, operator, approved);
+        listenContract.events.ApprovalForAll({}, async (error, data) => {
+          if (error) {
+            setStatus("😥 " + error.message);
+          } else {
+            setIsNFTApproved(data.returnValues[2]);
+             setStatus("✅ You are now ready to list for sale!");
+          }
+        });
+      }
+
+      function addERC20ApproveSmartContractListener (ABI, contractAddy) {
+        const listenContract = new web3.eth.Contract(ABI, contractAddy);  
+        //emit Approval(owner, spender, value)
+        listenContract.events.Approval({}, async (error, data) => {
+          if (error) {
+            setStatus("😥 " + error.message);
+          } else {
+            setIsERC20Approved(true);
+             setStatus("✅ You are now ready to buy!");
+          }
+        });
+      }
 
     // cancel sale.
     const cancelSale = async event => {
@@ -188,20 +251,36 @@ function PropertyDetail(){
     // buyProperty function
     const buyProperty = async event => {
       event.preventDefault()
+      // set isERC20Approved if allowance and balance are good.
+
+      const ERC20Contract = new web3.eth.Contract(ERC20ContractABI, ERC20ContractAddress);
+      let currentWallet = window.ethereum.selectedAddress;
+      console.log(currentWallet);
+      console.log(ERC20ContractAddress);
+      const checkERC20Allowance = await ERC20Contract.methods.allowance(currentWallet, NFTMarketContractAddress).call();
+      let currentAllowance =  web3.utils.fromWei(checkERC20Allowance);
+      console.log("current Allowance: " + currentAllowance);
+       if (currentAllowance < property.salePrice){
+         // send the tx to approve and start the listener
+         let deficit = property.salePrice - currentAllowance + 1;
+         alert("Please first approve the Token Allowance Transaction for an additional: $" + deficit);
+         const { status } = await approveERC20Transfer(property.salePrice+1);
+          setStatus(status);
+       }
 
      // alert(event.target.childNodes[0].value)
-      let buyTokenId = event.target.childNodes[0].value
-      const { status } = await buyNFT(buyTokenId);
-      setStatus(status);
+       let buyTokenId = document.getElementById('tokenId').value;
+       const { status } = await buyNFT(buyTokenId);
+       setStatus(status);
 
 
-      let propertyResults = await exchangeProperty( {
-        variables: {
-          "sellerId": property.sellerId,
-          "buyerId": user._id,
-          "propId": id,
+       let propertyResults = await exchangeProperty( {
+         variables: {
+           "sellerId": property.sellerId,
+           "buyerId": user._id,
+           "propId": id,
          
-        }});
+         }});
        console.log("Update Property Results:", propertyResults)
      
     }
@@ -300,7 +379,11 @@ function PropertyDetail(){
                    <button type="submit">Cancel Sale</button>
                 </form>
                 </>
-              ):
+              ): isNFTApproved ? (
+                <>
+                Needs approval tx.
+                </>
+              ) :
                 (
                 <>
                 {/*If the property DOES have an image and is NOT for sale  */}

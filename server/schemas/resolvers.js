@@ -90,7 +90,7 @@ const resolvers = {
       let propertyTx = PropertyTx.create({
         seller: sellerId,
         buyer: buyerId,
-        property, propId
+        property: propId
       }, { new: true });
       
       console.log(propertyTx);

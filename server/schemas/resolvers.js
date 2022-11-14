@@ -143,7 +143,8 @@ const resolvers = {
 
         forSale: args.forSale,
         salePrice: args.salePrice,
-        NftUri: args.NftUri,
+        nftUri: args.nftUri,
+        nftTokenId: args.nftTokenId,
         isNft: args.isNft,
         images: args.images,
         lat: args.lat,

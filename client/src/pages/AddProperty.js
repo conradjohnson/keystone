@@ -141,26 +141,34 @@ function AddProperty(props){
 
     }
 
+    const [textarea, setTextarea] = useState(
+      "An amazing new home! "
+    );
+    
     return (
         Auth.loggedIn() ? (
-        <>
-        <div className="search-location-input">
-      
-    </div>
-          <div className="container my-1">
-           Add Property Form here
-           <form onSubmit={handleFormSubmit} method="submit">
-           <label htmlFor="fullAddress">Street Address:</label>
-           <input
-                ref={autoCompleteRef}
-                onChange={event => setQuery(event.target.value)}
-                placeholder="Enter a City"
-                value={query}
-                id="fullAddress"
-                size="80"
-                
-            /><br/><br/>
-           
+          <>
+
+          <div className="flex flex-col pl-5 h-96 w-3/5 rounded shadow-lg bg-purple-100 ml-72">
+            <div className="my-4 text-3xl text-purple-800 font-bold leading-tight items-center text-center slide-in-bottom-h1">
+            <div className="bounce-top-cards">
+              Add A New Property
+              </div>
+              </div>
+              <div className="slide-in-bottom-h1 ml-32">
+              <div className="bounce-top-cards flex-col my-3">
+              <form onSubmit={handleFormSubmit} method="submit">
+                <label className="my-4 text-3xl text-purple-800 font-bold leading-tight text-left" htmlFor="fullAddress">Street Address: </label>
+                <div className="my-3">
+                <input
+                  ref={autoCompleteRef}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Enter a City"
+                  value={query}
+                  id="fullAddress"
+                  size="80"
+                />
+                </div>
           {/* <input
                 ref={autoCompleteRef}
                 onChange={event => setQuery(event.target.value)}
@@ -169,18 +177,27 @@ function AddProperty(props){
             /><br/>
         */}
             
-            <textarea
-              type="text"
-              name="description"
-              placeholder="property description"
-              onChange={handleChange}
-            ></textarea><br/>
-           
-            <button type="submit">submit!</button>
-           </form>
-          </div>
-        </> 
-        ) : null )
+            <div className="bounce-top-cards flex-col my-3">
+            <label className="my-4 text-3xl text-purple-800 font-bold leading-tight text-left" htmlFor="description">Property Description: </label>
+            <div className="my-3">
+            <textarea value={textarea} name="description" onChange={handleChange} />
+            </div>
+            </div>
+            <div>
+            <button
+              className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 my-3 border-b-4 border-purple-700 hover:border-purple-500 rounded bounce-top-cards slide-in-bottom-h1"
+              type="submit"
+            >
+              Submit
+            </button>
+            </div>
+          </form>
+        </div>
+        </div>
+      </div>
+
+    </>
+  ) : null)
             
 }
 

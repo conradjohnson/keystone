@@ -17,10 +17,10 @@ function PropertyWidget() {
       }
 
         return (
-            <div className="flex flex-col h-contain w-2/5 items-center rounded shadow-lg">
+            <div className="flex flex-col h-contain w-2/5 items-center rounded shadow-lg bg-purple-100">
               <h2 className="my-4 text-5xl text-purple-800 font-bold leading-tight text-center md:text-left slide-in-bottom-h1">Homes for sale:</h2>
               {state.properties.length ? (
-                <div className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory no-scrollbar slide-in-bottom-h1">
+                <div className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory no-scrollbar slide-in-bottom-h1 bg-white">
                   {filterProperties().map((property) => ( 
                     
                     <div className="max-w-sm justify-center overflow-hidden border-2 border-purple-800 bounce-top-cards snap-start my-4" key={property._id}>

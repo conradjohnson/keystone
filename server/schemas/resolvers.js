@@ -85,12 +85,12 @@ const resolvers = {
       await User.findByIdAndUpdate(buyerId, { $push: { properties: propId } });
       // Update the property to not for sale and zero out the sale price.
       let property = Property.findByIdAndUpdate(propId, {forSale:false, salePrice: -1}, { new: true });
-      // TODO Add TX to TX Table
       
+      // TODO Add TX to TX Table
       let propertyTx = PropertyTx.create({
         seller: sellerId,
         buyer: buyerId,
-        property, propId
+        property: propId
       }, { new: true });
       
       console.log(propertyTx);
@@ -112,6 +112,7 @@ const resolvers = {
         
           const property = new Property({
             address: args.address,
+            description: args.description,
             city: args.city,
             state: args.state,
             zip: args.zip,

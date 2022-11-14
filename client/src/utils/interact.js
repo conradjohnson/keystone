@@ -14,6 +14,9 @@ const contractABI = require('./abi/NFTABI.json')
 const contractAddress = "0xD2B95c89c90A0dAE85F88470f257c1F5ea3DA643";
 const marketContractAddress = "0xc6343805723EEe7180430A071B3BC02Df7e74429";
 const marketContractABI = require('./abi/NFTMarketplaceABI.json');
+const ERC20ContractABI = require('../utils/abi/erc20ABI.json');
+const ERC20ContractAddress = "0x6B6e63454c42B32a1975bE39a22eed8fF8c4489C";
+
 
 export const buyNFT = async(tokenId) => {
   window.contract = await new web3.eth.Contract(marketContractABI, marketContractAddress);
@@ -40,6 +43,64 @@ export const buyNFT = async(tokenId) => {
         status: "😥 Something went wrong: " + error.message
     }
 }
+}
+
+export const approveERC20Transfer= async (allowance)=>{
+
+  //let adjAllowance = web3.utils.toWei(String(allowance));
+  window.contract = await new web3.eth.Contract(ERC20ContractABI, ERC20ContractAddress);
+  const transactionParameters = {
+    to: ERC20ContractAddress, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    'data': window.contract.methods.approve(marketContractAddress, web3.utils.toWei(String(allowance)) ).encodeABI() //make call to NFT smart contract 
+  };
+  try {
+    const txHash = await window.ethereum
+        .request({
+            method: 'eth_sendTransaction',
+            params: [transactionParameters],
+        }
+      
+      )
+      return {
+        success: true,
+        status: "⏰ USD Token Allowance is getting Permissioned..."
+    }
+  } catch (error) {
+      return {
+          success: false,
+          status: "😥 Something went wrong: " + error.message
+      }
+  }
+}
+
+
+export const approveNFTTransfer = async ()=>{
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+  const transactionParameters = {
+    to: contractAddress, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    'data': window.contract.methods.setApprovalForAll(marketContractAddress, true ).encodeABI() //make call to NFT smart contract 
+  };
+  try {
+    const txHash = await window.ethereum
+        .request({
+            method: 'eth_sendTransaction',
+            params: [transactionParameters],
+        }
+      
+      )
+      return {
+        success: true,
+        status: "⏰ NFT Marketplace is getting Permissioned..."
+    }
+} catch (error) {
+    return {
+        success: false,
+        status: "😥 Something went wrong: " + error.message
+    }
+}
+
 }
 
 

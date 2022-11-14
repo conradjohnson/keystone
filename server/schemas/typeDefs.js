@@ -57,7 +57,7 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(name: String!, email: String!, password: String!): Auth
-    addProperty(address: String, address2: String, city: String, state: String, zip: String, images: [String], lat: String, lng: String, value: Int ): Property
+    addProperty(address: String, address2: String, city: String, state: String, zip: String, images: [String], lat: String, lng: String, value: Int, description: String ): Property
     exchangeProperty(sellerId: ID!, buyerId: ID!, propId: ID!): Property
     updateUser(_id: ID!, name: String, email: String, password: String, properties: [ID], wallet: String ): User
     updateProperty(_id: ID!, forSale: Boolean, salePrice: Int, nftTokenId: String, nftUri: String, isNft: Boolean, images: [String], lat: String, lng: String, value: Int, sellerId: ID ): Property

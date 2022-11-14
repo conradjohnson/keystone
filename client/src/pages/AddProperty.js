@@ -102,11 +102,75 @@ function AddProperty(props) {
           break;
         }
 
-        case "route": {
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormState({
+          ...formState,
+          [name]: value,
+        });
+      };
+    
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+        console.log(autoComplete.getPlace());
+        const place = autoComplete.getPlace();
+        let addr1 = "";
+        let city = "";
+        let st = "";
+        let zip = "";
+        for (const component of place.address_components ) {
+            const componentType = component.types[0];
+            switch (componentType) {
+              case "street_number": {
+                addr1 = `${component.long_name}`;
+                break;
+              }
+        
+              case "route": {
+                addr1 += " "+ component.short_name;
+                break;
+              }
+        
+              case "postal_code": {
+                zip = `${component.long_name}`;
+                break;
+              }
+            
+              case "locality": {
+                city = `${component.long_name}`;
+                break;
+    
+              }
+              case "administrative_area_level_1": {
+                st = `${component.short_name}`;
+                break;
+              }
+        
+            
+            }
+          }
+        console.log(addr1+city+st+zip);
+        try {
+           
+            const mutationResponse = await addProperty({
+              variables: { address: addr1, city: city, state: st, zip: zip, description:formState.description  },
+            }); 
+            console.log('mutationResponse:');
+            console.log(mutationResponse);
+            if (mutationResponse.data){
+                navigate(`/property/${mutationResponse.data.addProperty._id}`);
+            }
+            
+            
+          } catch (e) {
+            console.log(e);
+          }
+
+  case "route": {
           addr1 += " " + component.short_name;
           break;
         }
-
         case "postal_code": {
           zip = `${component.long_name}`;
           break;
@@ -172,6 +236,7 @@ function AddProperty(props) {
                 value={query}
             /><br/>
         */}
+
             {/* <input
               type="text"
               name="description"
@@ -198,6 +263,7 @@ function AddProperty(props) {
       
     </>
   ) : null;
+
 }
 
 export default AddProperty;

@@ -111,8 +111,8 @@ mutation ExchangeProperty($sellerId: ID!, $buyerId: ID!, $propId: ID!) {
 
 
 export const ADD_PROPERTY = gql`
-  mutation addProperty($address: String, $city: String, $state: String, $zip: String) {
-    addProperty(address: $address, city: $city, state: $state, zip: $zip) {
+  mutation addProperty($address: String, $city: String, $state: String, $zip: String, $description: String) {
+    addProperty(address: $address, city: $city, state: $state, zip: $zip, description: $description) {
       _id
       address
       address2

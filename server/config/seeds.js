@@ -39,7 +39,7 @@ db.once('open', async () => {
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
       images: ['image-1668265074930.jpg'],
-      forSale: true,
+      forSale: false,
       salePrice: 450000
     },
     {
@@ -76,7 +76,7 @@ db.once('open', async () => {
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
       images: ['image-1668265090030.jpg'],
-      forSale: true,
+      forSale: false,
       salePrice: 3500000
     },
     {
@@ -113,7 +113,7 @@ db.once('open', async () => {
       description:
         'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
       images: ['image-1668265116469.jpg'],
-      forSale: true,
+      forSale: false,
       salePrice: 2500000
     },
     {

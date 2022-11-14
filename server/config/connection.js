@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-dotenv.config();
+//const dotenv = require('dotenv');
+//dotenv.config();
 //prod: MONGODB_URI 
 //test: TESTMONGO_URI
 "mongodb://127.0.0.1:27017/keystone"

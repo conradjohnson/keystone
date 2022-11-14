@@ -26,7 +26,7 @@ function Profile(){
             <ul>
             {user.properties &&
             user.properties.map((property) => (
-              <li key={property._id}><a href={"/property/"+property._id}>{property.address}</a></li>
+              <li key={property._id}><a href={"/property/"+property._id}>{property.address}</a> ForSale? {property.forSale}</li>
             ))}
             </ul>
             

@@ -16,7 +16,30 @@ const marketContractAddress = "0xc6343805723EEe7180430A071B3BC02Df7e74429";
 const marketContractABI = require('./abi/NFTMarketplaceABI.json');
 
 export const buyNFT = async(tokenId) => {
-
+  window.contract = await new web3.eth.Contract(marketContractABI, marketContractAddress);
+  const transactionParameters = {
+    to: marketContractAddress, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    'data': window.contract.methods.nftBuy(tokenId).encodeABI() //make call to NFT smart contract 
+  };
+  try {
+    const txHash = await window.ethereum
+        .request({
+            method: 'eth_sendTransaction',
+            params: [transactionParameters],
+        }
+      
+      )
+      return {
+        success: true,
+        status: "✅ NFT Sale is Complete!"
+    }
+} catch (error) {
+    return {
+        success: false,
+        status: "😥 Something went wrong: " + error.message
+    }
+}
 }
 
 

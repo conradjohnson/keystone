@@ -4,7 +4,7 @@ import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER, QUERY_PROPERTY, QUERY_USER_PROPERTY, QUERY_PROPERTIES } from '../utils/queries';
 import { UPDATE_PROPERTY_SALE, EXCHANGE_PROPERTY, UPDATE_PROPERTY_NFT } from '../utils/mutations';
-import { mintNFT, getNFT, listNFT, cancelNFTSale } from "../utils/interact";
+import { mintNFT, getNFT, listNFT, cancelNFTSale, buyNFT } from "../utils/interact";
 import { useStoreContext } from '../utils/GlobalState';
 import axios from 'axios';
 const alchemyKey = "wss://eth-goerli.g.alchemy.com/ws/N5lg6Vk0u-FVp5oaIy7S9QUhzyVZ_PzX";
@@ -189,8 +189,11 @@ function PropertyDetail(){
     const buyProperty = async event => {
       event.preventDefault()
 
-      const { status } = await mintNFT(`http://localhost:3000/img/prop/${property.images[0]}`, property.address, property.description);
+     // alert(event.target.childNodes[0].value)
+      let buyTokenId = event.target.childNodes[0].value
+      const { status } = await buyNFT(buyTokenId);
       setStatus(status);
+
 
       let propertyResults = await exchangeProperty( {
         variables: {
@@ -199,11 +202,8 @@ function PropertyDetail(){
           "propId": id,
          
         }});
-        console.log("Update Property Results:", propertyResults)
-      // const { loading, error, data } = useQuery( QUERY_PROPERTY, {
-      //   // pass URL parameter
-      //   variables: { propertyId: id },
-      // });
+       console.log("Update Property Results:", propertyResults)
+     
     }
 
       //state for sale form
@@ -323,6 +323,7 @@ function PropertyDetail(){
               <h4>Listed for sale @ ${property.salePrice}</h4>
               <span>Buy {property.address}?</span>
               <form onSubmit={buyProperty} method="post">
+                  <input type="hidden" name="tokenId" id="tokenId" value={property.nftTokenId}/>
                  <button type="submit">Buy it!</button>
               </form>
               </>

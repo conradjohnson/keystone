@@ -22,9 +22,9 @@ export const QUERY_PROPERTY = gql`
       bedrooms
       bathrooms
       yearBuilt
-      ifNft
-      NftUri
-      NftTokenId
+      isNft
+      nftUri
+      nftTokenId
       sellerId
     }
   }
@@ -51,8 +51,8 @@ query UserWithProperty($id: ID!) {
     bedrooms
     bathrooms
     yearBuilt
-    ifNft
-    NftUri
+    isNft
+    nftUri
   }
   user {
     _id
@@ -77,8 +77,8 @@ query UserWithProperty($id: ID!) {
       bedrooms
       bathrooms
       yearBuilt
-      ifNft
-      NftUri
+      isNft
+      nftUri
     }
   }
 }

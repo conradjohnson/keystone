@@ -2,6 +2,7 @@
 
 export const UPDATE_PROPERTIES = "UPDATE_PROPERTIES";
 export const UPDATE_PROPERTY_SALE = "UPDATE_PROPERTY_SALE";
+export const UPDATE_PROPERTY_NFT = "UPDATE_PROPERTY_NFT";
 export const ADD_PROPERTY = "ADD_PROPERTY";
 // set some actions here
 

@@ -11,7 +11,9 @@ const web3 = createAlchemyWeb3(alchemyKey);
 
 
 const contractABI = require('./abi/NFTABI.json')
-const contractAddress = "0xb6d27b77db51D369507A5aEe2F5CE05406D5Cd47";
+const contractAddress = "0xD2B95c89c90A0dAE85F88470f257c1F5ea3DA643";
+
+
 export const mintNFT = async (url, name, description) => {
   //error handling
   if (url.trim() == "" || (name.trim() == "" || description.trim() == "")) { 
@@ -36,7 +38,8 @@ export const mintNFT = async (url, name, description) => {
   } 
   //get our pinata link to our json object
   const tokenURI = pinataResponse.pinataUrl;
-  
+  console.log("Pinata link:");
+  console.log(tokenURI);
   // load smart contract
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
 
@@ -53,11 +56,26 @@ export const mintNFT = async (url, name, description) => {
         .request({
             method: 'eth_sendTransaction',
             params: [transactionParameters],
-        });
-    return {
-        success: true,
-        status: "✅ Check out your transaction on Etherscan: https://goerli.etherscan.io/tx/" + txHash
-    }
+        }
+        // , function(err, txHash){
+        //   if (!err)
+        //    console.log('indise the function!: '+txHash);
+        //    const receipt = web3.eth.getTransactionReceipt(txHash);
+        //    let obj = {
+        //      txHash: txHash,
+        //      receipt: receipt,
+        //      success: true,
+        //      status: "✅ Check out your transaction on Etherscan: https://goerli.etherscan.io/tx/" + txHash
+        //    }
+        //    return obj
+        // }
+        )
+        
+     
+        return {
+          success: true,
+          status: "✅ Check out your transaction on Etherscan: https://goerli.etherscan.io/tx/" + txHash
+      }
   } catch (error) {
       return {
           success: false,

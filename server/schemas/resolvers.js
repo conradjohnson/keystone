@@ -87,6 +87,13 @@ const resolvers = {
       let property = Property.findByIdAndUpdate(propId, {forSale:false, salePrice: -1}, { new: true });
       // TODO Add TX to TX Table
       
+      let propertyTx = PropertyTx.create({
+        seller: sellerId,
+        buyer: buyerId,
+        property, propId
+      }, { new: true });
+      
+      console.log(propertyTx);
       // return the property
       return property;
 
@@ -143,7 +150,8 @@ const resolvers = {
 
         forSale: args.forSale,
         salePrice: args.salePrice,
-        NftUri: args.NftUri,
+        nftUri: args.nftUri,
+        nftTokenId: args.nftTokenId,
         isNft: args.isNft,
         images: args.images,
         lat: args.lat,

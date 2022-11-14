@@ -63,11 +63,11 @@ const propertySchema = new Schema({
     type: Boolean,
     default: false
   },
-  NftUri:{
+  nftUri:{
     type: String,
     trim: true
   },
-  NftTokenId:{
+  nftTokenId:{
     type: String,
     trim: true
   },

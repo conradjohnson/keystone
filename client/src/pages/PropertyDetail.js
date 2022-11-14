@@ -3,19 +3,30 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER, QUERY_PROPERTY, QUERY_USER_PROPERTY, QUERY_PROPERTIES } from '../utils/queries';
-import { UPDATE_PROPERTY_SALE, EXCHANGE_PROPERTY } from '../utils/mutations';
+import { UPDATE_PROPERTY_SALE, EXCHANGE_PROPERTY, UPDATE_PROPERTY_NFT } from '../utils/mutations';
+import { mintNFT, getNFT, listNFT, cancelNFTSale, buyNFT } from "../utils/interact";
 import { useStoreContext } from '../utils/GlobalState';
 import axios from 'axios';
+const alchemyKey = "wss://eth-goerli.g.alchemy.com/ws/N5lg6Vk0u-FVp5oaIy7S9QUhzyVZ_PzX";
 
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+const web3 = createAlchemyWeb3(alchemyKey);
+
+
+const contractABI = require('../utils/abi/NFTABI.json')
+const contractAddress = "0xD2B95c89c90A0dAE85F88470f257c1F5ea3DA643";
 
 function PropertyDetail(){
     const [formState, setFormState] = useState({ salePrice: ''});
+    const [status, setStatus] = useState("");
     const [image, setImage] = useState(null);
+    const [NFT, setNFT] = useState("");
     const [file, setFile] = useState();
     //const [property, setProperty]=useState({});
     const navigate = useNavigate();
     const { id } = useParams();
     const [updatePropertySale] = useMutation(UPDATE_PROPERTY_SALE);
+    const [updatePropertyNFT] = useMutation(UPDATE_PROPERTY_NFT);
     const [exchangeProperty] = useMutation(EXCHANGE_PROPERTY);
      // get the property details from the DB!
     const { loading, error, data } = useQuery( QUERY_PROPERTY, {
@@ -23,16 +34,29 @@ function PropertyDetail(){
       variables: { propertyId: id },
     });
    
+    //NFT Minting watching
+    useEffect( () => {
+      async function fetchData(){
+        if (typeof NFT != "number"){
+          addSmartContractListener();
+        }
+      }
+      fetchData();
+    }, [NFT]);
+
+
     let property = {};
     let hasImg = false;
     let imgPath = "/img/prop/";
     let forSale = false;
+    let isNft = false;
     if (data){
       property = data.property;
       console.log("State Object:", property)
       hasImg = property.images.length;
       forSale = property.forSale;
       imgPath += property.images[0];
+      isNft = property.isNft;
     } else {
       //navigate(`/404`);
     }
@@ -55,7 +79,7 @@ function PropertyDetail(){
        
     
     // set to true for now until we add in bc transactions 
-    let isNft = true;
+   //  let isNft = true;
 
       
     // Property Detail States:
@@ -90,6 +114,10 @@ function PropertyDetail(){
     const submitSale = async event => {
       event.preventDefault()
 
+      event.preventDefault()
+      const { status } = await listNFT(property.nftTokenId, parseInt(formState.salePrice));
+      setStatus(status);
+
       let propertyResults = await updatePropertySale( {
         variables: {
           "id": id,
@@ -100,12 +128,49 @@ function PropertyDetail(){
         }});
     
      console.log("Update Property Results:", propertyResults) 
-    
+        
 
     }
 
+
+    // Mint NFT from property record
+    const createNFT = async event => {
+      event.preventDefault()
+      const { status } = await mintNFT(`http://localhost:3000/img/prop/${property.images[0]}`, property.address, property.description);
+      setStatus(status);
+     // var receipt = await getNFT(status.tx);
+      setNFT("waiting to be minted");
+      console.log("CreateNFT!: waiting to be minted") 
+      }
+    
+    function addSmartContractListener () {
+        const listenContract = new web3.eth.Contract(contractABI, contractAddress);  
+        listenContract.events.NewMint({}, async (error, data) => {
+          if (error) {
+            setStatus("😥 " + error.message);
+          } else {
+            setNFT(data.returnValues[1]);
+            let propertyResults = await updatePropertyNFT( {
+              variables: {
+                "id": id,
+                "nftUri": "0xD2B95c89c90A0dAE85F88470f257c1F5ea3DA643",
+                "nftTokenId": data.returnValues[1],
+                "isNft": true,
+               
+              }});
+            console.log("NFTTokenId?:" + data.returnValues[1]);
+            setStatus("🎉 Your message has been updated!");
+          }
+        });
+      }
+    
+
+    // cancel sale.
     const cancelSale = async event => {
       event.preventDefault()
+      
+      const { status } = await cancelNFTSale(property.nftTokenId);
+      setStatus(status);
       let propertyResults = await updatePropertySale( {
         variables: {
           "id": id,
@@ -116,14 +181,19 @@ function PropertyDetail(){
          
         }});
         console.log("Update Property Results:", propertyResults) 
-
-
       }
-  
+      
+    
 
     // buyProperty function
     const buyProperty = async event => {
       event.preventDefault()
+
+     // alert(event.target.childNodes[0].value)
+      let buyTokenId = event.target.childNodes[0].value
+      const { status } = await buyNFT(buyTokenId);
+      setStatus(status);
+
 
       let propertyResults = await exchangeProperty( {
         variables: {
@@ -132,11 +202,8 @@ function PropertyDetail(){
           "propId": id,
          
         }});
-        console.log("Update Property Results:", propertyResults)
-      // const { loading, error, data } = useQuery( QUERY_PROPERTY, {
-      //   // pass URL parameter
-      //   variables: { propertyId: id },
-      // });
+       console.log("Update Property Results:", propertyResults)
+     
     }
 
       //state for sale form
@@ -156,6 +223,9 @@ function PropertyDetail(){
         <>
         <div className="border-2 border-purple-800 my-4 px-40 align-center padding-auto">
         <h2>PropertyDetail: {id} </h2>
+        <p id="status">
+        {status}
+      </p>
          <div className="max-w-sm justify-center overflow-hidden border-2 border-purple-800 my-4" key={property._id}>
                       <div className="px-6 py-4">
                       <a className="font-bold text-xl mb-2 text-center" href={"/property/" + property._id}>
@@ -192,6 +262,8 @@ function PropertyDetail(){
               <dd>${property.value}</dd>
               
             </dl>
+
+            {/* Start */}
             {/* State: If User is Owner and Logged in*/}
             {Auth.loggedIn() && isOwner ? (
                
@@ -208,6 +280,15 @@ function PropertyDetail(){
                 
                 <button type="submit">Submit</button>
               </form>
+              )  : !isNft ? (
+                <>
+                {/*If the property IS NOT an NFT.  */}
+                <h4>Create NFT to List for Sale</h4>
+                <span>Digitize Ownership for: {property.address}?</span>
+                <form onSubmit={createNFT} method="post">
+                   <button type="submit">Create NFT</button>
+                </form>
+                </>
               ) : forSale ? (
                 <>
                 {/*If the property IS forSale and user is owner  */}
@@ -242,6 +323,7 @@ function PropertyDetail(){
               <h4>Listed for sale @ ${property.salePrice}</h4>
               <span>Buy {property.address}?</span>
               <form onSubmit={buyProperty} method="post">
+                  <input type="hidden" name="tokenId" id="tokenId" value={property.nftTokenId}/>
                  <button type="submit">Buy it!</button>
               </form>
               </>

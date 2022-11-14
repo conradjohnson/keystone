@@ -11,9 +11,38 @@ export const LOGIN = gql`
   }
 `;
 
+export const UPDATE_PROPERTY_NFT = gql`
+mutation UPDATE_PROPERTY_NFT( $id: ID!, $nftTokenId: String, $isNft: Boolean, $nftUri: String) {
+  updateProperty(nftTokenId: $nftTokenId, isNft: $isNft, nftUri: $nftUri, _id: $id) {
+    _id
+    address
+    address2
+    city
+    state
+    country
+    zip
+    value
+    lat
+    lng
+    description
+    images
+    forSale
+    salePrice
+    sqft
+    bedrooms
+    bathrooms
+    yearBuilt
+    isNft
+    nftUri
+    nftTokenId
+    sellerId
+  }
+}
+`;
+
 export const UPDATE_PROPERTY_SALE = gql`
-  mutation UPDATE_PROPERTY_SALE($id: ID!, $salePrice: Int, $forSale: Boolean, $sellerId: ID, $isNft: Boolean $NftUri: String, $NftTokenId: String) {
-    updateProperty(_id: $id, salePrice: $salePrice, forSale: $forSale, sellerId: $sellerId, isNft: $isNft, NftUri: $NftUri, NftTokenId: $NftTokenId ) {
+  mutation UPDATE_PROPERTY_SALE($id: ID!, $salePrice: Int, $forSale: Boolean, $sellerId: ID, $isNft: Boolean $nftUri: String, $nftTokenId: String) {
+    updateProperty(_id: $id, salePrice: $salePrice, forSale: $forSale, sellerId: $sellerId, isNft: $isNft, nftUri: $nftUri, nftTokenId: $nftTokenId ) {
       _id
       address
       address2
@@ -32,9 +61,9 @@ export const UPDATE_PROPERTY_SALE = gql`
       bedrooms
       bathrooms
       yearBuilt
-      ifNft
-      NftUri
-      NftTokenId
+      isNft
+      nftUri
+      nftTokenId
       sellerId
     }
   }
@@ -74,8 +103,8 @@ mutation ExchangeProperty($sellerId: ID!, $buyerId: ID!, $propId: ID!) {
     bedrooms
     bathrooms
     yearBuilt
-    ifNft
-    NftUri
+    isNft
+    nftUri
   }
 }
 `;

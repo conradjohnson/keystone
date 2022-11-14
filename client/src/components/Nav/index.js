@@ -1,36 +1,40 @@
-import React, { useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
-import { useQuery, useMutation } from '@apollo/client';
-import { UPDATE_USER_WALLET } from '../../utils/mutations';
-import { connectWallet, getCurrentWalletConnected, mintNFT } from "../../utils/interact";
+import { useQuery, useMutation } from "@apollo/client";
+import { UPDATE_USER_WALLET } from "../../utils/mutations";
+import {
+  connectWallet,
+  getCurrentWalletConnected,
+  mintNFT,
+} from "../../utils/interact";
 
 function Nav() {
   const [walletAddress, setWallet] = useState("");
   const [status, setStatus] = useState("");
   const [updateUserWallet] = useMutation(UPDATE_USER_WALLET);
-  
-  useEffect( () => { //TODO: implement
+
+  useEffect(() => {
+    //TODO: implement
     async function fetchData() {
-      const {address, status} = await getCurrentWalletConnected();
+      const { address, status } = await getCurrentWalletConnected();
       setWallet(address);
-      setStatus(status); 
+      setStatus(status);
       addWalletListener();
     }
 
     fetchData();
   }, []);
 
- 
-
-  const setUserWallet = async (walletAddress) =>{
-    let userId = Auth.getProfile().data._id
-    let updatedUser = await updateUserWallet( {
+  const setUserWallet = async (walletAddress) => {
+    let userId = Auth.getProfile().data._id;
+    let updatedUser = await updateUserWallet({
       variables: {
-        "id": userId,
-        "wallet": walletAddress
-      }});
-  }
+        id: userId,
+        wallet: walletAddress,
+      },
+    });
+  };
 
   const connectWalletPressed = async () => {
     const walletResponse = await connectWallet();
@@ -66,69 +70,74 @@ function Nav() {
   function showNavigation() {
     if (Auth.loggedIn()) {
       return (
-        
-        <ul className="flex w-1/2 justify-end content-center">
-         
-          <li className="inline-block text-blue-700 no-underline hover:text-indigo-900 hover:text-underline text-center h-auto p-4">
-            <Link to="/profile">
-              Profile
-            </Link>
-          </li>
-          <li className="inline-block text-blue-700 no-underline hover:text-indigo-900 hover:text-underline text-center h-auto p-4">
-            <Link to="/add-property">
-              Add Property
-            </Link>
-          </li>
-          <li className="inline-block text-blue-700 no-underline hover:text-indigo-900 hover:text-underline text-center h-auto p-4">
-          <button id="walletButton" onClick={connectWalletPressed}>
-          {walletAddress.length > 0 ? (
-            "Connected: " +
-            String(walletAddress).substring(0, 6) +
-            "..." +
-            String(walletAddress).substring(38)
-          ) : (
-            <span>Connect Wallet</span>
-          )}
-        </button>
-          </li>
+        <ul className="flex w-1/2 content-center">
+          <Link
+            className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded text-center"
+            to="/profile"
+          >
+            Profile
+          </Link>
 
-          <li className="inline-block text-blue-700 no-underline hover:text-indigo-900 hover:text-underline text-center h-auto p-4">
-            {/* this is not using the Link component to logout or user and then refresh the application to the start */}
-            <a href="/" onClick={() => Auth.logout()}>
-              Logout
-            </a>
-          </li>
+          <Link
+            className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded text-center"
+            to="/add-property"
+          >
+            Add Property
+          </Link>
+
+          <button
+            className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded text-center"
+            id="walletButton"
+            onClick={connectWalletPressed}
+          >
+            {walletAddress.length > 0 ? (
+              "Connected: " +
+              String(walletAddress).substring(0, 6) +
+              "..." +
+              String(walletAddress).substring(38)
+            ) : (
+              <span>Connect Wallet</span>
+            )}
+          </button>
+
+          {/* this is not using the Link component to logout or user and then refresh the application to the start */}
+          <a
+            className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded"
+            href="/"
+            onClick={() => Auth.logout()}
+          >
+            Logout
+          </a>
         </ul>
       );
     } else {
       return (
         <ul className="flex w-1/2 justify-end content-center">
-          <li className="inline-block text-blue-700 no-underline hover:text-indigo-900 hover:text-underline text-center h-auto p-4">
-            <Link to="/register">
-              Register
-            </Link>
-          </li>
-          <li className="inline-block text-blue-700 no-underline hover:text-indigo-900 hover:text-underline text-center h-auto p-4">
-            <Link to="/login">
-              Login
-            </Link>
-          </li>
+          <Link
+            className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded text-center"
+            to="/register"
+          >
+            Register
+          </Link>
+
+          <Link
+            className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded"
+            to="/login"
+          >
+            Login
+          </Link>
         </ul>
       );
     }
   }
 
   return (
-    <header className="w-full container mx-auto p-6 flex items-center justify-between">
-      <h1 className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-4xl">
-        <Link to="/">
-          KeyStone
-        </Link>
+    <header className="w-full mx-auto p-6 flex items-center justify-between">
+      <h1 className="flex items-center text-purple-700 no-underline hover:no-underline font-bold text-5xl">
+        <Link to="/">KeyStone</Link>
       </h1>
 
-      <nav>
-        {showNavigation()}
-      </nav>
+      <nav>{showNavigation()}</nav>
     </header>
   );
 }

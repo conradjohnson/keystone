@@ -12,7 +12,74 @@ const web3 = createAlchemyWeb3(alchemyKey);
 
 const contractABI = require('./abi/NFTABI.json')
 const contractAddress = "0xD2B95c89c90A0dAE85F88470f257c1F5ea3DA643";
+const marketContractAddress = "0xc6343805723EEe7180430A071B3BC02Df7e74429";
+const marketContractABI = require('./abi/NFTMarketplaceABI.json');
 
+export const buyNFT = async(tokenId) => {
+
+}
+
+
+export const cancelNFTSale = async(tokenId) => {
+  window.contract = await new web3.eth.Contract(marketContractABI, marketContractAddress);
+  const transactionParameters = {
+    to: marketContractAddress, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    'data': window.contract.methods.nftSale(tokenId, 0, false ).encodeABI() //make call to NFT smart contract 
+  };
+  try {
+    const txHash = await window.ethereum
+        .request({
+            method: 'eth_sendTransaction',
+            params: [transactionParameters],
+        }
+      
+      )
+      return {
+        success: true,
+        status: "✅ NFT Sale is Canceled!"
+    }
+} catch (error) {
+    return {
+        success: false,
+        status: "😥 Something went wrong: " + error.message
+    }
+}
+}
+
+
+export const listNFT = async(tokenId, price)=>{
+
+  let adjPrice = web3.utils.toWei(String(price));
+  //const newPrice = toBaseUnit(toString(price), 18, web3.utils.BN)
+  //adjPrice += "000000000000000000"
+  window.contract = await new web3.eth.Contract(marketContractABI, marketContractAddress);
+  const transactionParameters = {
+    to: marketContractAddress, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    'data': window.contract.methods.nftSale(tokenId, adjPrice, true ).encodeABI() //make call to NFT smart contract 
+  };
+
+  try {
+      const txHash = await window.ethereum
+          .request({
+              method: 'eth_sendTransaction',
+              params: [transactionParameters],
+          }
+        
+        )
+        return {
+          success: true,
+          status: "✅ NFT is Listed for Sale!"
+      }
+  } catch (error) {
+      return {
+          success: false,
+          status: "😥 Something went wrong: " + error.message
+      }
+  }
+
+}
 
 export const mintNFT = async (url, name, description) => {
   //error handling

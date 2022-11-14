@@ -341,6 +341,10 @@ function PropertyDetail(){
               <dd>{property.bathrooms}</dd>
               <dt>Value</dt>
               <dd>${property.value}</dd>
+              <dt>Latitude:</dt>
+              <dd>{property.lat}</dd>
+              <dt>longitude</dt>
+              <dd>{property.lng}</dd>
               
             </dl>
 

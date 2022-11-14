@@ -2,8 +2,8 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, Property, Category, PropertyTx } = require('../models');
 const { signToken } = require('../utils/auth');
 const fetch = require('node-fetch');
-//const dotenv = require('dotenv');
-//dotenv.config();
+const dotenv = require('dotenv');
+dotenv.config();
 async function getPropertyInfo(address1, address2){
 
   address1 = encodeURIComponent(address1);

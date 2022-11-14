@@ -4,7 +4,7 @@ import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER, QUERY_PROPERTY, QUERY_USER_PROPERTY, QUERY_PROPERTIES } from '../utils/queries';
 import { UPDATE_PROPERTY_SALE, EXCHANGE_PROPERTY, UPDATE_PROPERTY_NFT } from '../utils/mutations';
-import { mintNFT, getNFT } from "../utils/interact";
+import { mintNFT, getNFT, listNFT, cancelNFTSale } from "../utils/interact";
 import { useStoreContext } from '../utils/GlobalState';
 import axios from 'axios';
 const alchemyKey = "wss://eth-goerli.g.alchemy.com/ws/N5lg6Vk0u-FVp5oaIy7S9QUhzyVZ_PzX";
@@ -114,6 +114,10 @@ function PropertyDetail(){
     const submitSale = async event => {
       event.preventDefault()
 
+      event.preventDefault()
+      const { status } = await listNFT(property.nftTokenId, parseInt(formState.salePrice));
+      setStatus(status);
+
       let propertyResults = await updatePropertySale( {
         variables: {
           "id": id,
@@ -124,10 +128,12 @@ function PropertyDetail(){
         }});
     
      console.log("Update Property Results:", propertyResults) 
-    
+        
 
     }
 
+
+    // Mint NFT from property record
     const createNFT = async event => {
       event.preventDefault()
       const { status } = await mintNFT(`http://localhost:3000/img/prop/${property.images[0]}`, property.address, property.description);
@@ -159,9 +165,12 @@ function PropertyDetail(){
       }
     
 
-
+    // cancel sale.
     const cancelSale = async event => {
       event.preventDefault()
+      
+      const { status } = await cancelNFTSale(property.nftTokenId);
+      setStatus(status);
       let propertyResults = await updatePropertySale( {
         variables: {
           "id": id,
@@ -179,6 +188,9 @@ function PropertyDetail(){
     // buyProperty function
     const buyProperty = async event => {
       event.preventDefault()
+
+      const { status } = await mintNFT(`http://localhost:3000/img/prop/${property.images[0]}`, property.address, property.description);
+      setStatus(status);
 
       let propertyResults = await exchangeProperty( {
         variables: {

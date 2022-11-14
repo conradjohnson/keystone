@@ -359,7 +359,7 @@ function PropertyDetail(){
                   accept="image/*"
                 ></input>
                 
-                <button type="submit">Submit</button>
+                <button className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded" type="submit">Submit</button>
               </form>
               )  : !isNft ? (
                 <>
@@ -367,7 +367,7 @@ function PropertyDetail(){
                 <h4>Create NFT to List for Sale</h4>
                 <span>Digitize Ownership for: {property.address}?</span>
                 <form onSubmit={createNFT} method="post">
-                   <button type="submit">Create NFT</button>
+                   <button className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded" type="submit">Create NFT</button>
                 </form>
                 </>
               ) : forSale ? (
@@ -376,7 +376,7 @@ function PropertyDetail(){
                 <h4>Listed for sale @ ${property.salePrice}</h4>
                 <span>Cancel Sale of {property.address}?</span>
                 <form onSubmit={cancelSale} method="post">
-                   <button type="submit">Cancel Sale</button>
+                   <button className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded" type="submit">Cancel Sale</button>
                 </form>
                 </>
               ): isNFTApproved ? (
@@ -396,7 +396,7 @@ function PropertyDetail(){
                    id="salePrice"
                    onChange={handleChange}
                   ></input>
-                  <button type="submit">List for sale</button>
+                  <button className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded" type="submit">List for sale</button>
                 </form>
                 </>
               )
@@ -409,7 +409,7 @@ function PropertyDetail(){
               <span>Buy {property.address}?</span>
               <form onSubmit={buyProperty} method="post">
                   <input type="hidden" name="tokenId" id="tokenId" value={property.nftTokenId}/>
-                 <button type="submit">Buy it!</button>
+                 <button className="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 m-3 border-b-4 border-purple-700 hover:border-purple-500 rounded" type="submit">Buy it!</button>
               </form>
               </>
             ): 

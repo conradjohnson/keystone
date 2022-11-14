@@ -31,12 +31,12 @@ function Register(props) {
   };
 
   return (
-    <div className="flex flex-col pl-5 h-contain w-2/5 rounded shadow-lg bg-white ml-12">
+    <div className="flex flex-col pl-5 pt-5 h-96 w-3/5 rounded shadow-lg bg-purple-100 ml-72 mt-6">
       <div className="slide-in-bottom-h1">
       <div className="bounce-top-cards">
       <Link className="my-4 text-lg text-purple-800 font-bold leading-tight text-left" to="/login">← Go to Login</Link>
       </div>
-      <div className="pl-5 mt-6">
+      <div className="pl-60 mt-6">
       <h2 className="my-4 text-3xl text-purple-800 font-bold leading-tight text-left slide-in-bottom-h1 bounce-top-cards">Register</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2 bounce-top-cards">

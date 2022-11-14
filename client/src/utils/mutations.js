@@ -40,6 +40,19 @@ export const UPDATE_PROPERTY_SALE = gql`
   }
 `;
 
+export const UPDATE_USER_WALLET = gql`
+  mutation UpdateUserWallet($id: ID!, $wallet: String) {
+    updateUser(_id: $id, wallet: $wallet) {
+      _id
+      name
+      email
+      wallet
+      username
+    }
+  }
+
+`;
+
 export const EXCHANGE_PROPERTY = gql`
 mutation ExchangeProperty($sellerId: ID!, $buyerId: ID!, $propId: ID!) {
   exchangeProperty(sellerId: $sellerId, buyerId: $buyerId, propId: $propId) {

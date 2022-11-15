@@ -6,10 +6,6 @@ import Marker from './Marker';
 import Popup from './Popup';
 import GoogleMapReact from 'google-map-react'
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-
-
 
 export default function Map(){
     const [state, dispatch] = useStoreContext();

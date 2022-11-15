@@ -23,6 +23,7 @@ import {
   approveERC20Transfer,
 } from "../utils/interact";
 import { useStoreContext } from "../utils/GlobalState";
+import PropertyMap from "../components/Map/PropertyMap";
 import axios from "axios";
 const alchemyKey =
   "wss://eth-goerli.g.alchemy.com/ws/N5lg6Vk0u-FVp5oaIy7S9QUhzyVZ_PzX";
@@ -225,7 +226,7 @@ function PropertyDetail() {
           },
         });
         console.log("NFTTokenId?:" + data.returnValues[1]);
-        setStatus("🎉 Your message has been updated!");
+        setStatus("🎉 Your NFT has been minted!");
       }
     });
   }
@@ -483,7 +484,11 @@ function PropertyDetail() {
             <span className="text-lg text-purple-800 font-bold leading-tight slide-in-bottom-h1">Not Currently Listed For Sale.</span>
           )}
         </div>
+        
       </div>
+      {/* <div className="flex my-4 px-40 items-center padding-auto rounded shadow-lg bg-purple-100 w-10/12 ml-32">
+        <PropertyMap property={property} lat={property.lat} lng={property.lng} />
+      </div> */}
     </>
   );
 }

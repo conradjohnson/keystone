@@ -141,9 +141,7 @@ function AddProperty(props){
 
     }
 
-    const [textarea, setTextarea] = useState(
-      "An amazing new home! "
-    );
+    
     
     return (
         Auth.loggedIn() ? (
@@ -180,7 +178,7 @@ function AddProperty(props){
             <div className="bounce-top-cards flex-col my-3">
             <label className="my-4 text-3xl text-purple-800 font-bold leading-tight text-left" htmlFor="description">Property Description: </label>
             <div className="my-3">
-            <textarea value={textarea} name="description" onChange={handleChange} />
+            <textarea name="description" onChange={handleChange} rows="3" cols="55">An Amazing, Beautiful Home!</textarea>
             </div>
             </div>
             <div>

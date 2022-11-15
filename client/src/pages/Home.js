@@ -1,5 +1,6 @@
 import React, { useEffect }  from "react";
 import PropertyWidget from "../components/PropertyWidget";
+import Map from "../components/Map";
 import { useStoreContext } from '../utils/GlobalState';
 import { useQuery } from '@apollo/client';
 import { UPDATE_PROPERTIES } from '../utils/actions';
@@ -32,13 +33,8 @@ const Home = () => {
     <div className="pt-6 px-6 mx-auto flex flex-wrap flex-row items-center justify-center justify-around">
       
       <PropertyWidget />
-     {/*} <Map />*/}
-     <div className="w-3/5 py-4 overflow-y-hidden">
-          <img
-            className="w-5/6 mx-auto slide-in-bottom"
-            src= {mapPlaceholder}
-          />
-        </div>
+      <Map />
+     
     </div>
   );
 };

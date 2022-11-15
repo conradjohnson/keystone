@@ -20,7 +20,8 @@ async function getPropertyInfo(address1, address2){
     method: "GET",
     headers: {
       "accept": "application/json;charset=UTF-8",
-      "apikey": process.env.ATTOM_KEY
+      "apikey": process.env.REACT_APP_ATTOM_KEY
+     //"apikey": "8435ffe43427e5050fc351ac57362d9a"
    }
   })
   .then(response => response.json())

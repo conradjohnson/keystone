@@ -89,6 +89,10 @@ body {
       height: 700px
   }
 
+  .w-contain-xl{
+      width: 850px
+  }
+
   .carouselImg{
     object-fit: contain;
   }

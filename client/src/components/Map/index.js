@@ -38,7 +38,8 @@ export default function Map(){
     console.log(state.properties);
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '550px', width: '800px', border: '3px solid #0022FF' }}>
+      <div className='flex h-contain w-contain-xl items-center rounded shadow-lg bg-purple-100 pl-5'>
+      <div style={{ height: '550px', width: '800px', border: '3px solid #562266', }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyDyfKCmxQxrQqrFnDgMSmj6xxhLnIkbuh8" }}
         defaultCenter={center}
@@ -63,6 +64,7 @@ export default function Map(){
                
        
       </GoogleMapReact>
+    </div>
     </div>
     );
   }

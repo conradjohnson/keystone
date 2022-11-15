@@ -332,7 +332,8 @@ function PropertyDetail() {
     <>
       <div className="flex my-3 px-40 items-center padding-auto rounded shadow-lg bg-purple-100 w-10/12 ml-32">
         {/* <h2>PropertyDetail: {id} </h2> */}
-        
+        <div className="slide-in-bottom-h1">
+        <div className="bounce-top-cards">
         <div
           className="max-w-sm justify-center overflow-hidden border-2 border-purple-800 my-4 bg-white"
           key={property._id}
@@ -365,7 +366,11 @@ function PropertyDetail() {
             </a>
           </div>
         </div>
+        </div>
+        </div>
         <div className="ml-6 mt-3 items-center">
+        <div className="slide-in-bottom-h1">
+        <div className="bounce-top-cards">
           <div>
             <div className="text-lg text-purple-800 font-bold leading-tight slide-in-bottom-h1">Address:</div>
             <div className="mt-1 text-base text-purple-700 font-bold leading-tight slide-in-bottom-h1">{property.address}</div>
@@ -483,6 +488,8 @@ function PropertyDetail() {
           ) : (
             <span className="text-lg text-purple-800 font-bold leading-tight slide-in-bottom-h1">Not Currently Listed For Sale.</span>
           )}
+        </div>
+        </div>
         </div>
         
       </div>
